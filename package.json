@@ -1,0 +1,30 @@
+{
+  "name": "corezoid-doc",
+  "version": "1.0.0",
+  "description": "Documentation for Corezoid",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"**/*.md\"",
+    "format:check": "prettier --check \"**/*.md\"",
+    "format:all": "prettier --write \"**/*.md\"",
+    "validate:schema": "ajv validate -s ${SCHEMA_PATH:-scripts/process-schema.json} -d \"${EXAMPLES_PATH:-examples/**/*.json}\"",
+    "validate": "npm run validate:schema",
+    "reposition-nodes": "node scripts/reposition-nodes.js",
+    "build:docs": "node scripts/build-docs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.corezoid.com:documentation/corezoid-doc.git"
+  },
+  "keywords": [
+    "corezoid",
+    "documentation"
+  ],
+  "author": "Corezoid Team",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-cli": "^5.0.0",
+    "prettier": "^3.2.5"
+  }
+}
