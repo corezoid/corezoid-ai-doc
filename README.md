@@ -150,3 +150,4 @@ When creating merge requests:
 ## 📄 License
 
 MIT License - See LICENSE file for details.
+
