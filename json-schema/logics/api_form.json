@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Form Logic Schema",
+  "description": "Schema for the api_form logic type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "form_id"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["api_form"],
+      "description": "Specifies this is a Form logic block"
+    },
+    "form_id": {
+      "type": "string",
+      "description": "ID of the form to display"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the form"
+    },
+    "fields": {
+      "type": "array",
+      "description": "Form fields configuration",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "label"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Field identifier"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["text", "number", "select", "checkbox", "radio", "textarea", "date"],
+            "description": "Field type"
+          },
+          "label": {
+            "type": "string",
+            "description": "Field label"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required"
+          },
+          "default": {
+            "type": ["string", "number", "boolean"],
+            "description": "Default value for the field"
+          },
+          "options": {
+            "type": "array",
+            "description": "Options for select, checkbox, or radio fields",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": ["string", "number"],
+                  "description": "Option value"
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Option label"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "timeout": {
+      "type": "integer",
+      "description": "Form submission timeout in seconds",
+      "default": 86400
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    }
+  },
+  "examples": [
+    {
+      "type": "api_form",
+      "form_id": "customer_form",
+      "title": "Customer Information",
+      "fields": [
+        {
+          "id": "name",
+          "type": "text",
+          "label": "Full Name",
+          "required": true
+        },
+        {
+          "id": "age",
+          "type": "number",
+          "label": "Age",
+          "required": true
+        },
+        {
+          "id": "subscription",
+          "type": "select",
+          "label": "Subscription Type",
+          "required": true,
+          "options": [
+            {
+              "value": "basic",
+              "label": "Basic"
+            },
+            {
+              "value": "premium",
+              "label": "Premium"
+            }
+          ]
+        }
+      ],
+      "timeout": 86400,
+      "err_node_id": "timeout_node_id"
+    }
+  ]
+}

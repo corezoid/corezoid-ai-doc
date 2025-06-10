@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Database Call Logic Schema",
+  "description": "Schema for the db_call logic type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "err_node_id", "instance_id", "query"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["db_call"],
+      "description": "Specifies this is a Database Call logic block"
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    },
+    "instance_id": {
+      "type": ["integer", "null"],
+      "description": "ID of the pre-configured database connection instance"
+    },
+    "query": {
+      "type": "string",
+      "description": "The SQL query to execute. Can include dynamic references like {{user_id}}"
+    },
+    "params": {
+      "type": "object",
+      "description": "Parameters for the query (for parameterized queries)",
+      "default": {}
+    },
+    "params_type": {
+      "type": "object",
+      "description": "Data types for the parameters",
+      "default": {}
+    },
+    "timeout": {
+      "type": "integer",
+      "description": "Query timeout in seconds",
+      "default": 30
+    }
+  },
+  "examples": [
+    {
+      "type": "db_call",
+      "err_node_id": "error_node_id",
+      "instance_id": 227,
+      "query": "SELECT * FROM \"public\".\"alex\" LIMIT 100"
+    },
+    {
+      "type": "db_call",
+      "err_node_id": "error_node_id",
+      "instance_id": 227,
+      "query": "SELECT * FROM users WHERE id = {{user_id}}",
+      "params": {
+        "user_id": "{{user_id}}"
+      },
+      "params_type": {
+        "user_id": "number"
+      },
+      "timeout": 60
+    }
+  ]
+}

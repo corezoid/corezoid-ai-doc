@@ -1,0 +1,354 @@
+{
+  "conv_type": "process",
+  "description": "",
+  "obj_id": 1668282,
+  "obj_type": 1,
+  "params": [
+    {
+      "descr": "user question",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "question",
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
+    },
+    {
+      "descr": "answer",
+      "flags": [
+        "output"
+      ],
+      "name": "answer",
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
+    },
+    {
+      "descr": "",
+      "flags": [
+        "required",
+        "output"
+      ],
+      "name": "status",
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
+    },
+    {
+      "descr": "",
+      "flags": [
+        "output"
+      ],
+      "name": "reason",
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
+    }
+  ],
+  "ref_mask": true,
+  "scheme": {
+    "nodes": [
+      {
+        "condition": {
+          "logics": [
+            {
+              "conv_id": 1660229,
+              "err_node_id": "68418f1382ba9626707c4f5f",
+              "extra": {
+                "messages": "{{messages}}",
+                "model": "{{model}}"
+              },
+              "extra_type": {
+                "messages": "array",
+                "model": "string"
+              },
+              "group": "all",
+              "type": "api_rpc",
+              "user_id": 68381
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f5e",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "Вызывает процесс для обращения к OpenAI API",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "id": "68418f1382ba9626707c4f5a",
+        "obj_type": 0,
+        "options": null,
+        "title": "Вызов GPT API",
+        "x": -88,
+        "y": 472
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+        "id": "68418f1382ba9626707c4f5c",
+        "obj_type": 2,
+        "options": "{\"save_task\":true}",
+        "title": "Final: результат вычисления",
+        "x": 8,
+        "y": 1012
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "answer": "{{choices[0].message.content}}",
+                "status": "{{status}}"
+              },
+              "res_data_type": {
+                "answer": "string",
+                "status": "string"
+              },
+              "throw_exception": false,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f5c",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "Returns the answer for a math question",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "id": "68418f1382ba9626707c4f5e",
+        "obj_type": 0,
+        "options": null,
+        "title": "Ответ: успех",
+        "x": -92,
+        "y": 708
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "reason": "Ошибка при вызове GPT API",
+                "status": "error"
+              },
+              "res_data_type": {
+                "reason": "string",
+                "status": "string"
+              },
+              "throw_exception": true,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f60",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "id": "68418f1382ba9626707c4f5f",
+        "obj_type": 3,
+        "options": null,
+        "title": "Ошибка API",
+        "x": 208,
+        "y": 524
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "id": "68418f1382ba9626707c4f60",
+        "obj_type": 2,
+        "options": null,
+        "title": "Error in GPT API",
+        "x": 396,
+        "y": 556
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "err_node_id": "68418f1382ba9626707c4f64",
+              "lang": "js",
+              "src": "// Функция для определения, является ли вопрос математическим вычислением\nfunction isCalculationQuestion(question) {\n  // Паттерны для определения математических вопросов\n  const mathPatterns = [\n    /сколько будет/i,\n    /посчитай/i,\n    /вычисли/i,\n    /результат/i,\n    /сумма/i,\n    /разница/i,\n    /произведение/i,\n    /деление/i,\n    /в степени/i,\n    /корень/i,\n    /\\d+\\s*[+\\-*/^]\\s*\\d+/,  // Числа с операторами\n    /\\(\\s*\\d+[^)]*\\)/        // Выражения в скобках\n  ];\n  \n  // Проверяем, соответствует ли вопрос хотя бы одному паттерну\n  return mathPatterns.some(pattern =\u003e pattern.test(question));\n}\n\n// Получаем вопрос из входных данных\nconst question = data.question || '';\n\n// Проверяем, является ли вопрос математическим\nconst isCalculation = isCalculationQuestion(question);\n\n// Устанавливаем результат\ndata.isCalculation = isCalculation;\n\n// Если это вычисление, подготавливаем сообщения для GPT\nif (isCalculation) {\n  data.messages = [\n    {\n      \"role\": \"system\",\n      \"content\": \"Ты математический калькулятор. Твоя задача - вычислить результат математического выражения. Отвечай только числом без дополнительного текста.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": question\n    }\n  ];\n  data.model = \"gpt-3.5-turbo\";\n} else {\n  // Если это не вычисление, устанавливаем статус и причину\n  data.status = \"no_calculation\";\n  data.reason = \"Вопрос не содержит математического выражения для вычисления\";\n}",
+              "type": "api_code"
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f6b",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "Определяет, является ли вопрос математическим вычислением",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "68418f1382ba9626707c4f62",
+        "obj_type": 0,
+        "options": null,
+        "title": "Анализ вопроса",
+        "x": -96,
+        "y": 88
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "reason": "Ошибка при анализе вопроса",
+                "status": "error"
+              },
+              "res_data_type": {
+                "reason": "string",
+                "status": "string"
+              },
+              "throw_exception": true,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f69",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"collapse\"}",
+        "id": "68418f1382ba9626707c4f64",
+        "obj_type": 3,
+        "options": null,
+        "title": "Ошибка анализа",
+        "x": 300,
+        "y": 100
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"success\",\"modeForm\":\"collapse\"}",
+        "id": "68418f1382ba9626707c4f65",
+        "obj_type": 2,
+        "options": "{\"save_task\":true}",
+        "title": "Final: не вычисление",
+        "x": 568,
+        "y": 320
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "reason": "{{reason}}",
+                "status": "{{status}}"
+              },
+              "res_data_type": {
+                "reason": "string",
+                "status": "string"
+              },
+              "throw_exception": false,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f65",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "Возвращает ответ для не математического вопроса",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "68418f1382ba9626707c4f66",
+        "obj_type": 0,
+        "options": null,
+        "title": "Ответ: не вычисление",
+        "x": 180,
+        "y": 280
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"error\",\"modeForm\":\"collapse\"}",
+        "id": "68418f1382ba9626707c4f69",
+        "obj_type": 2,
+        "options": null,
+        "title": "Error",
+        "x": 576,
+        "y": 136
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "to_node_id": "68418f1382ba9626707c4f62",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"collapse\"}",
+        "id": "6841711982ba9626706c5b74",
+        "obj_type": 1,
+        "options": null,
+        "title": "Start",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "conditions": [
+                {
+                  "cast": "boolean",
+                  "const": "true",
+                  "fun": "eq",
+                  "param": "isCalculation"
+                }
+              ],
+              "to_node_id": "68418f1382ba9626707c4f5a",
+              "type": "go_if_const"
+            },
+            {
+              "to_node_id": "68418f1382ba9626707c4f66",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "Определяет дальнейший путь обработки",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "68418f1382ba9626707c4f6b",
+        "obj_type": 0,
+        "options": null,
+        "title": "Проверка типа вопроса",
+        "x": -96,
+        "y": 260
+      }
+    ],
+    "web_settings": [
+      [],
+      []
+    ]
+  },
+  "status": "active",
+  "title": "AI Calculator 1"
+}

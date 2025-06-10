@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Get Task Logic Schema",
+  "description": "Schema for the api_get_task logic type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "err_node_id","conv_id"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["api_get_task"],
+      "description": "Specifies this is a Get from Queue logic block"
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    },
+    "conv_id": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "description": "Numeric ID of the target Process"
+        },
+        {
+          "type": "string",
+          "pattern": "^(@|\\{\\{).*",
+          "description": "String ID of the target Process, must start with '@'"
+        }
+      ],
+      "description": "ID of the target Process to receive the copied task or where the task to modify resides. Can be either a numeric ID or a string starting with '@'"
+    },
+    "node_id": {
+      "type": "string",
+      "description": "ID of the Queue node to get tasks from"
+    },
+    "queue_node_id": {
+      "type": "string",
+      "description": "Alternative to node_id - ID of the Queue node to get tasks from"
+    },
+    "order_by": {
+      "type": "string",
+      "enum": ["ASC", "DESC"],
+      "description": "Order in which to retrieve tasks from the queue",
+      "default": "ASC"
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of tasks to retrieve from the queue",
+      "default": 1
+    },
+    "timeout": {
+      "type": "integer",
+      "description": "Timeout in seconds for waiting for tasks",
+      "default": 30
+    },
+    "user_id": {
+      "type": "integer",
+      "description": "Internal user ID associated with the operation"
+    },
+    "obj_to_id": {
+      "type": ["string", "integer", "null"],
+      "description": "Not typically used for standard calls"
+    }
+  },
+  "examples": [
+    {
+      "type": "api_get_task",
+      "conv_id": 1652996,
+      "node_id": "680b687682ba963ebb9f9ed5",
+      "order_by": "ASC",
+      "err_node_id": "680b6b6a82ba963ebba035bf",
+      "user_id": 68381
+    },
+    {
+      "type": "api_get_task",
+      "err_node_id": "error_node_id",
+      "queue_node_id": "queue_node_id",
+      "count": 5,
+      "timeout": 60
+    }
+  ]
+}

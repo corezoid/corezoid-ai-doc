@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Time Semaphore Schema",
+  "description": "Schema for the time semaphore type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "value", "to_node_id"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["time"],
+      "description": "Specifies this is a time-based semaphore"
+    },
+    "value": {
+      "type": ["integer", "string"],
+      "description": "Delay duration"
+    },
+    "dimension": {
+      "type": "string",
+      "enum": ["sec", "min", "hour", "day"],
+      "description": "Time unit (seconds, minutes, hours, days)",
+      "default": "sec"
+    },
+    "to_node_id": {
+      "type": "string",
+      "description": "ID of the node to proceed to after the delay"
+    }
+  },
+  "examples": [
+    {
+      "type": "time",
+      "value": 30,
+      "dimension": "sec",
+      "to_node_id": "680a3c79513aa065de6c2d31"
+    },
+    {
+      "type": "time",
+      "value": 600,
+      "dimension": "min",
+      "to_node_id": "680b6717513aa065dea07090"
+    },
+    {
+      "type": "time",
+      "value": 172800,
+      "dimension": "day",
+      "to_node_id": "680b6813513aa065dea0c2d7"
+    }
+  ]
+}

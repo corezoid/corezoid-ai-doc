@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API RPC Reply Logic Schema",
+  "description": "Schema for the api_rpc_reply logic type in Corezoid processes (Reply to Process)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type"],
+  "properties": {
+    "exception_reason": {
+      "type": "string",
+      "description": "Reason for the exception (optional)"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["api_rpc_reply"],
+      "description": "Specifies this is a Reply to Process logic block"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["key_value", ""],
+      "description": "Mode for the reply, typically 'key_value'",
+      "default": "key_value"
+    },
+    "res_data": {
+      "type": "object",
+      "description": "Parameters to return to the calling process",
+      "default": {}
+    },
+    "res_data_type": {
+      "type": "object",
+      "description": "Data types for the parameters",
+      "default": {}
+    },
+    "extra": {
+      "type": "object",
+      "description": "Alternative to res_data - parameters to return to the calling process",
+      "default": {}
+    },
+    "extra_type": {
+      "type": "object",
+      "description": "Alternative to res_data_type - data types for the parameters",
+      "default": {}
+    },
+    "throw_exception": {
+      "type": "boolean",
+      "description": "Whether to throw an exception if the reply fails",
+      "default": false
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    }
+  },
+  "examples": [
+    {
+      "type": "api_rpc_reply",
+      "mode": "key_value",
+      "res_data": {
+        "rsp": "{{cal_rsp}}"
+      },
+      "res_data_type": {
+        "rsp": "object"
+      },
+      "throw_exception": false
+    },
+    {
+      "type": "api_rpc_reply",
+      "extra": {
+        "result": "{{calculation_result}}",
+        "status": "success"
+      },
+      "extra_type": {
+        "result": "number",
+        "status": "string"
+      },
+      "err_node_id": "error_node_id"
+    }
+  ]
+}

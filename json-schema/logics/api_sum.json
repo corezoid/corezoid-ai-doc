@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Sum Logic Schema",
+  "description": "Schema for the api_sum logic type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "extra"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["api_sum"],
+      "description": "Specifies this is a Sum logic block"
+    },
+    "extra": {
+      "type": "array",
+      "description": "Array defining the sum operations",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "value"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Internal ID for this sum operation"
+          },
+          "name": {
+            "type": "string",
+            "description": "The SumID (identifier for this specific sum)"
+          },
+          "value": {
+            "type": "string",
+            "description": "The parameter or value to sum, can be a dynamic reference like {{count}}"
+          },
+          "reset_interval": {
+            "type": "string",
+            "description": "Interval for resetting the sum (e.g., '1d' for daily)"
+          },
+          "alert_threshold": {
+            "type": "string",
+            "description": "Threshold value for triggering alerts"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "type": "api_sum",
+      "extra": [
+        {
+          "id": "1745501399858",
+          "name": "count",
+          "value": "1"
+        },
+        {
+          "id": "1745576904260",
+          "name": "val",
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "type": "api_sum",
+      "extra": [
+        {
+          "id": "1744388449151",
+          "name": "sum",
+          "value": "{{count}}",
+          "reset_interval": "1d",
+          "alert_threshold": "1000"
+        }
+      ]
+    }
+  ]
+}

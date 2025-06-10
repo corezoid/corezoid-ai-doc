@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Count Semaphore Schema",
+  "description": "Schema for the count semaphore type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "value", "esc_node_id"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["count"],
+      "description": "Specifies this is a count-based semaphore"
+    },
+    "value": {
+      "type": ["integer", "string"],
+      "description": "Maximum number of concurrent executions or attempts"
+    },
+    "esc_node_id": {
+      "type": "string",
+      "description": "ID of the node to proceed to when the count limit is reached (escalation node)"
+    }
+  },
+  "examples": [
+    {
+      "type": "count",
+      "value": "30",
+      "esc_node_id": "680b646382ba963ebb9e6b13"
+    },
+    {
+      "type": "count",
+      "value": 4,
+      "esc_node_id": "680b637e82ba963ebb9e35d7"
+    }
+  ]
+}

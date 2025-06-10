@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Node Schema",
+  "description": "Schema for nodes in Corezoid processes",
+  "type": "object",
+  "required": ["id", "obj_type", "condition"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 5,
+      "description": "Unique node ID"
+    },
+    "obj_type": {
+      "type": "integer",
+      "enum": [0, 1, 2, 3],
+      "description": "Object type: 0 - Logic node, 1 - Start node, 2 - End node, 3 - Condition node"
+    },
+    "condition": {
+      "$ref": "#/definitions/condition"
+    },
+    "title": {
+      "type": "string",
+      "description": "Node title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Node description"
+    },
+    "x": {
+      "type": "integer",
+      "description": "X coordinate on canvas"
+    },
+    "y": {
+      "type": "integer",
+      "description": "Y coordinate on canvas"
+    },
+    "extra": {
+      "type": "string",
+      "description": "UI settings in JSON string format"
+    },
+    "options": {
+      "type": ["string", "null"],
+      "description": "Additional options in JSON string format"
+    }
+  },
+  "examples": [
+    {
+      "id": "680a3ce882ba963ebb6b4eb1",
+      "obj_type": 0,
+      "condition": {
+        "logics": [
+          {
+            "type": "api_copy",
+            "user_id": 68381,
+            "conv_id": 1652722,
+            "ref": "{{root.task_id}}",
+            "mode": "modify",
+            "is_sync": true,
+            "group": "all",
+            "data": {
+              "username": "{{user.name}}",
+              "age": "{{user.age}}",
+              "is_active": "true",
+              "data": "[{\"a\":\"b\"}]"
+            },
+            "data_type": {
+              "username": "string",
+              "age": "number",
+              "is_active": "boolean",
+              "data": "array"
+            },
+            "err_node_id": "680a3ce882ba963ebb6b4eb6"
+          },
+          {
+            "type": "go",
+            "to_node_id": "680b6459513aa065de9f977a"
+          }
+        ],
+        "semaphors": []
+      },
+      "title": "",
+      "description": "",
+      "x": 712,
+      "y": 1304,
+      "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+      "options": null
+    },
+    {
+      "id": "680a3bc3513aa065de6bf62e",
+      "obj_type": 1,
+      "condition": {
+        "logics": [
+          {
+            "type": "go",
+            "to_node_id": "680a3bcd82ba963ebb6afd05"
+          }
+        ],
+        "semaphors": []
+      },
+      "title": "Start",
+      "description": "",
+      "x": 816,
+      "y": -492,
+      "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+      "options": null
+    }
+  ]
+}

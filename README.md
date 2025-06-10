@@ -1,11 +1,11 @@
-# Corezoid AI Documentation
+# Corezoid Documentation
 
-This repository contains comprehensive documentation for Corezoid AI, a process engine platform for
-creating business processes, services, and applications powered by artificial intelligence. The documentation is enhanced with AI capabilities to provide better guidance and examples.
+This repository contains comprehensive documentation for Corezoid, a process engine platform for
+creating business processes, services, and applications.
 
 ## 🔍 Overview
 
-Corezoid AI is a powerful process engine that enables:
+Corezoid is a powerful process engine that enables:
 - Visual design of business processes through connected nodes
 - Data processing with various node types (API calls, code execution, conditions)
 - Integration with external systems through standardized interfaces
@@ -18,6 +18,7 @@ Corezoid AI is a powerful process engine that enables:
 The repository is organized into the following key directories:
 
 ### Source Documentation (`/src`)
+Describes all Corezoid entities (folders, processes, nodes, logic)
 
 - **Process Documentation** (`/src/process/`) - Definition, operational mechanics, and key features of Corezoid processes
   - Process JSON structure and validation requirements
@@ -42,6 +43,27 @@ The repository is organized into the following key directories:
   - ZIP packaging format for deployment
   - Versioning and deployment guidelines
 
+  
+### ConvCTL (`/convctl`)
+- **Process Manipulation Tool** - Source code for the tool that manipulates generated processes
+  - CLI interface for process creation and modification
+  - Validation and correction utilities
+  - Corezoid API integration components
+  - Error handling and diagnostics
+    
+- It is part of the Prompt-Based Process Creation solution, powered by Devin AI
+    [Prompt-Based Process Creation.md](./Prompt-Based%20Process%20Creation.md)
+
+
+
+### JSON Schema (`/json-schema`)
+- **Complete Process Structure Description** - Detailed JSON Schema for validation
+  - Process structure validation rules and constraints
+  - Node type-specific validation requirements
+  - Reference validation and relationship constraints
+  - Version-specific schema variants
+
+  
 ### Scripts (`/scripts`)
 
 - **Validation Scripts** - Tools for validating process JSON against schema
@@ -54,11 +76,26 @@ The repository is organized into the following key directories:
 - **Documentation Build** - Scripts for generating documentation outputs
   - `build-docs.js` - Generates AI documentation from markdown sources
 
-### Playbooks (`/playbook`)
-
+### Playbooks (`/playbooks`)
+All available playbooks
 - **Process Creation Playbook** - Step-by-step guide for creating Corezoid processes
   - Implementation workflow and best practices
   - References to detailed documentation in the repository
+
+
+### Samples (`/samples`)
+- **Real-life Process Examples** - Complete working processes demonstrating various Corezoid features
+  - API integration examples with different authentication methods
+  - Business logic implementation patterns
+  - Error handling and recovery flows
+  - Data transformation and enrichment examples
+
+### Temporary Resources (`/.processes`)
+- **Project Resource Storage** - Temporary directory for project resources
+  - Extracted project components for analysis
+  - Generated process files before deployment
+  - Final target process storage
+  - Working directory for process transformation
 
 ## 🛠️ Development
 
@@ -149,4 +186,4 @@ When creating merge requests:
 
 ## 📄 License
 
-MIT License - See LICENSE file for details.
+Proprietary - All rights reserved.

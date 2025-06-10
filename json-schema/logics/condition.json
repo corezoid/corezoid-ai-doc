@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Condition Schema",
+  "description": "Schema for condition in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "logics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/logics/items"
+      }
+    },
+    "semaphors": {
+      "$ref": "#/definitions/semaphors"
+    }
+  },
+  "examples": [
+    {
+      "logics": [
+        {
+          "type": "api_copy",
+          "user_id": 68381,
+          "conv_id": 1652722,
+          "ref": "{{root.task_id}}",
+          "mode": "modify",
+          "is_sync": true,
+          "group": "all",
+          "data": {
+            "username": "{{user.name}}",
+            "age": "{{user.age}}",
+            "is_active": "true",
+            "data": "[{\"a\":\"b\"}]"
+          },
+          "data_type": {
+            "username": "string",
+            "age": "number",
+            "is_active": "boolean",
+            "data": "array"
+          },
+          "err_node_id": "680a3ce882ba963ebb6b4eb6"
+        },
+        {
+          "type": "go",
+          "to_node_id": "680b6459513aa065de9f977a"
+        }
+      ],
+      "semaphors": []
+    },
+    {
+      "logics": [],
+      "semaphors": [
+        {
+          "type": "time",
+          "value": 30,
+          "dimension": "sec",
+          "to_node_id": "680b649c82ba963ebb9e7a64"
+        },
+        {
+          "type": "count",
+          "value": "30",
+          "esc_node_id": "680b646382ba963ebb9e6b13"
+        }
+      ]
+    }
+  ]
+}

@@ -281,7 +281,6 @@ Here's a real-world example of a Reply to Process node with properly stringified
   "description": "Send result back to caller",
   "x": 500,
   "y": 500,
-  "uuid": "90505848-b55a-4813-a5cf-45b05b95ef15",
   "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
   "options": null
 }

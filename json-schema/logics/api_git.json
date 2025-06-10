@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Git Logic Schema",
+  "description": "Schema for the api_git logic type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "err_node_id"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["api_git", "git_call"],
+      "description": "Specifies this is a Git Call logic block"
+    },
+    "version": {
+      "type": "integer",
+      "description": "API version",
+      "default": 2
+    },
+    "lang": {
+      "type": "string",
+      "enum": ["js", "python", "golang"],
+      "description": "Language of the script",
+      "default": "js"
+    },
+    "repo": {
+      "type": "string",
+      "description": "URL of the Git repository"
+    },
+    "commit": {
+      "type": "string",
+      "description": "Branch, tag, or commit hash to use"
+    },
+    "path": {
+      "type": "string",
+      "description": "Path to the script file in the repository"
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID for error handling"
+    },
+    "code": {
+      "type": "string",
+      "description": "Inline code to execute (optional)"
+    },
+    "src": {
+      "type": "string",
+      "description": "Alternative to code - inline code to execute"
+    },
+    "script": {
+      "type": "string",
+      "description": "Path to the script file in the repository"
+    },
+    "log": {
+      "type": ["boolean", "object"],
+      "description": "Whether to log execution details or log configuration",
+      "default": {}
+    },
+    "timeout": {
+      "type": "integer",
+      "description": "Execution timeout in seconds",
+      "default": 30
+    }
+  },
+  "examples": [
+    {
+      "type": "git_call",
+      "version": 2,
+      "lang": "golang",
+      "code": "package main\n\nimport (\n\t\"context\"\n\n\t\"github.com/corezoid/gitcall-go-runner/gitcall\"\n)\n\nfunc usercode(_ context.Context, data map[string]interface{}) error {\n\n\tdata[\"hello\"] = \"Hello world!\"\n\n\treturn nil\n}\n\nfunc main() {\n\tgitcall.Handle(usercode)\n}",
+      "commit": "",
+      "script": "",
+      "repo": "",
+      "path": "",
+      "src": "package main\n\nimport (\n\t\"context\"\n\n\t\"github.com/corezoid/gitcall-go-runner/gitcall\"\n)\n\nfunc usercode(_ context.Context, data map[string]interface{}) error {\n\n\tdata[\"hello\"] = \"Hello world!\"\n\n\treturn nil\n}\n\nfunc main() {\n\tgitcall.Handle(usercode)\n}",
+      "log": {},
+      "err_node_id": "680b6717513aa065dea07091"
+    },
+    {
+      "type": "api_git",
+      "version": 2,
+      "lang": "js",
+      "repo": "https://github.com/example/repo.git",
+      "commit": "v1.0.0",
+      "script": "scripts/process.js",
+      "err_node_id": "error_node_id",
+      "log": true,
+      "timeout": 60
+    }
+  ]
+}

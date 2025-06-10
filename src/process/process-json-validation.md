@@ -288,8 +288,7 @@ The Corezoid process JSON schema defines that a process must always be an object
         },
         "title": "Start",
         "x": 100,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174000"
+        "y": 100
       }
     ]
   }
@@ -362,10 +361,6 @@ Below is the complete JSON schema for validating Corezoid process structures:
         "paused"
       ],
       "description": "Process status"
-    },
-    "uuid": {
-      "type": "string",
-      "description": "Universally unique identifier for the process"
     },
     "params": {
       "type": "array",
@@ -582,10 +577,6 @@ Below is the complete JSON schema for validating Corezoid process structures:
         "y": {
           "type": "integer",
           "description": "Y coordinate for visual positioning"
-        },
-        "uuid": {
-          "type": "string",
-          "description": "Universally unique identifier for the node"
         },
         "options": {
           "type": [
@@ -910,8 +901,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Start",
         "x": 100,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174000"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174001",
@@ -941,8 +931,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Set Parameters",
         "x": 250,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174001"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174002",
@@ -964,8 +953,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Code Execution",
         "x": 400,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174002"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174003",
@@ -993,8 +981,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Condition Check",
         "x": 550,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174003"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174004",
@@ -1029,8 +1016,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "API Call",
         "x": 700,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174004"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174005",
@@ -1059,8 +1045,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Call Process",
         "x": 850,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174005"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174006",
@@ -1088,8 +1073,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Database Call",
         "x": 1000,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174006"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174007",
@@ -1115,8 +1099,7 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         },
         "title": "Sum Operation",
         "x": 1150,
-        "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174007"
+        "y": 100
       },
       {
         "id": "123e4567e89b12d3a456426614174008",
@@ -1144,7 +1127,6 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         "title": "Reply to Process",
         "x": 1300,
         "y": 100,
-        "uuid": "123e4567-e89b-12d3-a456-426614174008",
         "options": {
           "save_task": true
         }
@@ -1159,7 +1141,6 @@ Below is a comprehensive example of a Corezoid process JSON that includes variou
         "title": "Error",
         "x": 700,
         "y": 250,
-        "uuid": "123e4567-e89b-12d3-a456-426614174009",
         "options": {
           "error_status": true,
           "save_task": true

@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Logic Schema",
+  "description": "Schema for the api logic type in Corezoid processes",
+  "type": "object",
+  "required": ["type", "method", "url", "err_node_id"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["api"],
+      "description": "Specifies this is an API Call logic block"
+    },
+    "rfc_format": {
+      "type": "boolean",
+      "description": "Whether to use RFC format for the request"
+    },
+    "format": {
+      "type": "string",
+      "enum": ["", "raw"],
+      "description": "Request format type (empty string means 'default'). If raw, use raw_body instead of extra and extra_type"
+    },
+    "content_type": {
+      "type": "string",
+      "description": "Content type for the request",
+      "examples": ["application/json", "application/x-www-form-urlencoded"]
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
+      "description": "HTTP method for the request"
+    },
+    "url": {
+      "type": "string",
+      "description": "Target API endpoint URL"
+    },
+    "extra": {
+      "type": "object",
+      "description": "This is body of the request",
+      "additionalProperties": {
+        "type": ["string", "object", "boolean"],
+        "description": "Value for the parameter, can include dynamic references like {{user.name}}"
+      }
+    },
+    "extra_type": {
+      "type": "object",
+      "description": "Specifies the data types of the 'extra' object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["string", "number", "boolean", "array", "object"],
+        "description": "Data type for the corresponding parameter in the extra object"
+      }
+    },
+    "raw_body":{
+      "type": "string",
+      "description": "Raw body for the request, can include dynamic references like {{user.name}}, Instead of extra and extra_type"
+    },
+    "extra_headers": {
+      "type": "object",
+      "description": "Custom HTTP headers for the request",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Value for the header, can include dynamic references"
+      }
+    },
+    "api_secret_outer": {
+      "type": "string",
+      "description": "API secret for authentication, can be a dynamic reference like {{secret}}"
+    },
+    "cert_pem": {
+      "type": "string",
+      "description": "Certificate in PEM format for SSL client authentication, can be a dynamic reference"
+    },
+    "max_threads": {
+      "type": "integer",
+      "description": "Maximum concurrent requests allowed for this node"
+    },
+    "send_sys": {
+      "type": "boolean",
+      "description": "Whether to include system parameters in the request"
+    },
+    "debug_info": {
+      "type": "boolean",
+      "description": "Whether to include extra debug info in the task"
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    },
+    "customize_response": {
+      "type": "boolean",
+      "description": "Whether to customize the response mapping"
+    },
+    "response": {
+      "type": "object",
+      "description": "Mapping for the response data",
+      "properties": {
+        "header": {
+          "type": "string",
+          "description": "Parameter name to store response headers"
+        },
+        "body": {
+          "type": "string",
+          "description": "Parameter name to store response body"
+        }
+      }
+    },
+    "response_type": {
+      "type": "object",
+      "description": "Data types for the response mapping",
+      "properties": {
+        "header": {
+          "type": "string",
+          "enum": ["string", "object"],
+          "description": "Data type for the header parameter"
+        },
+        "body": {
+          "type": "string",
+          "enum": ["string", "object", "array"],
+          "description": "Data type for the body parameter"
+        }
+      }
+    },
+    "version": {
+      "type": "integer",
+      "description": "API version"
+    },
+    "is_migrate": {
+      "type": "boolean",
+      "description": "Migration flag"
+    }
+  },
+  "examples": [
+    {
+      "type": "api",
+      "rfc_format": true,
+      "format": "",
+      "content_type": "application/json",
+      "method": "POST",
+      "url": "https://admin.corezoid.com/29483b48-4903-48d5-95ff-b45e205009ac/process/1651191",
+      "extra": {
+        "a": "b",
+        "d": "d"
+      },
+      "extra_type": {
+        "a": "string",
+        "d": "string"
+      },
+      "extra_headers": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "api_secret_outer": "asdfasdfsadf",
+      "max_threads": 5,
+      "send_sys": true,
+      "debug_info": true,
+      "err_node_id": "6808f1ac82ba963ebb37a0fd",
+      "customize_response": false,
+      "response": {
+        "header": "{{header}}",
+        "body": "{{body}}"
+      },
+      "response_type": {
+        "header": "object",
+        "body": "object"
+      },
+      "version": 2,
+      "is_migrate": true
+    },
+    {
+      "type": "api",
+      "method": "GET",
+      "url": "https://api.example.com/users/{{user_id}}",
+      "extra": {},
+      "extra_type": {},
+      "extra_headers": {
+        "Authorization": "Bearer {{token}}"
+      },
+      "err_node_id": "error_node_id"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Set Parameter Logic Schema",
+  "description": "Schema for the set_param logic type in Corezoid processes",
+  "type": "object",
+  "required": ["type", "extra", "extra_type","err_node_id"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["set_param"],
+      "description": "Specifies this is a parameter setting logic block"
+    },
+    "extra": {
+      "type": "object",
+      "description": "Key-value pairs of parameters to set in the task data",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Value for the parameter, can include dynamic references like {{user.name}}"
+      }
+    },
+    "extra_type": {
+      "type": "object",
+      "description": "Specifies the data types of the parameters",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["string", "number", "boolean", "array", "object"],
+        "description": "Data type for the corresponding parameter in the extra object"
+      }
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    }
+  },
+  "examples": [
+    {
+      "type": "set_param",
+      "extra": {
+        "abc": "de1"
+      },
+      "extra_type": {
+        "abc": "string"
+      },
+      "err_node_id": "6808a919513aa065de252510"
+    },
+    {
+      "type": "set_param",
+      "extra": {
+        "status": "processed",
+        "count": "5",
+        "is_valid": "true"
+      },
+      "extra_type": {
+        "status": "string",
+        "count": "number",
+        "is_valid": "boolean"
+      },
+      "err_node_id": "error_node_id"
+    }
+  ]
+}

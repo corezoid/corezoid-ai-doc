@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Code Logic Schema",
+  "description": "Schema for the api_code logic type in Corezoid processes",
+  "type": "object",
+  "required": ["type", "err_node_id"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["api_code"],
+      "description": "Specifies this is a Code logic block"
+    },
+    "lang": {
+      "type": "string",
+      "enum": ["js", "python"],
+      "description": "Programming language for the code",
+      "default": "js"
+    },
+    "src": {
+      "type": "string",
+      "description": "Source code to execute"
+    },
+    "code": {
+      "type": "string",
+      "description": "Alternative property for source code (deprecated)"
+    },
+    "err_node_id": {
+      "type": "string",
+      "description": "ID of the node for error handling"
+    },
+    "extra": {
+      "type": "object",
+      "description": "Additional parameters for the code execution",
+      "default": {}
+    },
+    "extra_type": {
+      "type": "object",
+      "description": "Data types for the extra parameters",
+      "default": {}
+    }
+  },
+  "examples": [
+    {
+      "type": "api_code",
+      "lang": "js",
+      "src": "data.result = 10;",
+      "err_node_id": "680a3c22513aa065de6c18f8"
+    },
+    {
+      "type": "api_code",
+      "lang": "js",
+      "src": "data.total = data.price * data.quantity;\ndata.discount = data.total > 100 ? 0.1 : 0;\ndata.final_price = data.total * (1 - data.discount);",
+      "err_node_id": "error_node_id",
+      "extra": {
+        "timeout": "5000"
+      },
+      "extra_type": {
+        "timeout": "number"
+      }
+    }
+  ]
+}

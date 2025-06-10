@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Go If Const Logic Schema",
+  "description": "Schema for the go_if_const logic type in Corezoid processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "to_node_id", "conditions"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["go_if_const"],
+      "description": "Specifies this is a conditional routing logic block"
+    },
+    "to_node_id": {
+      "type": "string",
+      "description": "ID of the node to go to if the condition is met"
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Array of conditions to evaluate",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["param", "const", "fun", "cast"],
+        "properties": {
+          "param": {
+            "type": "string",
+            "description": "Parameter name to check in the task data"
+          },
+          "const": {
+            "type": "string",
+            "description": "Constant value to compare against. Can be a static value or a dynamic reference like {{user.age}}"
+          },
+          "fun": {
+            "type": "string",
+            "enum": ["eq", "not_eq", "less", "more", "less_or_eq", "more_or_eq", "regexp"],
+            "description": "Comparison function: eq (equal), not_eq (not equal), less (less than), more (greater than), less_or_eq (less than or equal), more_or_eq (greater than or equal), regexp (regular expression match)"
+          },
+          "cast": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "array"],
+            "description": "Data type to cast the parameter to for comparison"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "type": "go_if_const",
+      "to_node_id": "6808f1ac82ba963ebb37a0fb",
+      "conditions": [
+        {
+          "fun": "eq",
+          "const": "hardware",
+          "param": "__conveyor_api_return_type_error__",
+          "cast": "string"
+        }
+      ]
+    },
+    {
+      "type": "go_if_const",
+      "to_node_id": "680a3c0682ba963ebb6b1525",
+      "conditions": [
+        {
+          "param": "key1",
+          "const": "val",
+          "fun": "eq",
+          "cast": "string"
+        },
+        {
+          "param": "key2",
+          "const": "val",
+          "fun": "not_eq",
+          "cast": "string"
+        },
+        {
+          "param": "key3",
+          "const": "1",
+          "fun": "more",
+          "cast": "number"
+        },
+        {
+          "param": "key4",
+          "const": "2",
+          "fun": "less",
+          "cast": "number"
+        },
+        {
+          "param": "key5",
+          "const": "10",
+          "fun": "more_or_eq",
+          "cast": "number"
+        },
+        {
+          "param": "key6",
+          "const": "11",
+          "fun": "less_or_eq",
+          "cast": "number"
+        },
+        {
+          "param": "key7",
+          "const": "user_*",
+          "fun": "regexp",
+          "cast": "string"
+        }
+      ]
+    }
+  ]
+}
