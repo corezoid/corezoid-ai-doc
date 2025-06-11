@@ -5,3 +5,6 @@ package-lock.json
 .processes
 .idea
 .vscode
+convctl
+yarn.lock
+package.json
