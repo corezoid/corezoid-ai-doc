@@ -18,13 +18,13 @@ Before starting work, you need to export all existing project processes:
 
 ```bash
 # Export processes by folder id
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-folder <ROOT_FOLDER_ID> ~/repos/corezoid-doc/.processes
+API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-folder <ROOT_FOLDER_ID> ~/repos/corezoid-ai-doc/.processes
 ```
-where ~/repos/corezoid-doc/.processes is the folder where all exported JSON processes of the project will be saved
+where ~/repos/corezoid-ai-doc/.processes is the folder where all exported JSON processes of the project will be saved
 
 ---
 
-Then you need to analyze all exported processes in the ~/repos/corezoid-doc/.processes folder and select those that need to be used for logic modification.
+Then you need to analyze all exported processes in the ~/repos/corezoid-ai-doc/.processes folder and select those that need to be used for logic modification.
 
 
 ## 3. Getting the current JSON process
@@ -33,13 +33,13 @@ For our work, we need to export the current version of the process for modificat
 
 ```bash
 # Process export
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-process <PROC_ID> ~/repos/corezoid-doc/.processes/target_process.json
+API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/target_process.json
 ```
-where ~/repos/corezoid-doc/.processes/target_process.json is where the exported JSON process will be saved for editing
+where ~/repos/corezoid-ai-doc/.processes/target_process.json is where the exported JSON process will be saved for editing
 
 ## 4. Implementing changes in the process logic.
 Implement the necessary changes according to the requirements.
-Make all changes to the JSON process in the ~/repos/corezoid-doc/.processes/target_process.json file
+Make all changes to the JSON process in the ~/repos/corezoid-ai-doc/.processes/target_process.json file
 
 
 ## 5. 🧪 Mandatory result verification (updated JSON process)
@@ -47,7 +47,7 @@ Make all changes to the JSON process in the ~/repos/corezoid-doc/.processes/targ
 Execute the command:
 
 ```bash
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-doc/.processes/target_process.json <task_data>
+API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/target_process.json <task_data>
 ```
 
 Where:
@@ -57,7 +57,7 @@ Where:
 #### Example:
 
 ```bash
-API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-doc/.processes/target_process.json '{"key1":"val1"}'
+API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/target_process.json '{"key1":"val1"}'
 
 ```
 
@@ -73,7 +73,7 @@ The verification must pass successfully.
 
 - Analyze the exported project and exported process. Analyze the changes described by the user that need to be made
 
-- Make corrections to the JSON process in the ~/repos/corezoid-doc/.processes/target_process.json file
+- Make corrections to the JSON process in the ~/repos/corezoid-ai-doc/.processes/target_process.json file
 
 - Test the process by executing a test request (./convctl.sh run-process).
 

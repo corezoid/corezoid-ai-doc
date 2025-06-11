@@ -254,10 +254,10 @@ After generating the process in JSON format:
 Save the process file to the following directory:
 
 ```bash
-~/repos/corezoid-doc/.processes/
+~/repos/corezoid-ai-doc/.processes/
 ```
 
-For example: `~/repos/corezoid-doc/.processes/my_api_process.json`.
+For example: `~/repos/corezoid-ai-doc/.processes/my_api_process.json`.
 
 ---
 
@@ -266,7 +266,7 @@ For example: `~/repos/corezoid-doc/.processes/my_api_process.json`.
 Go to the directory with the validation script and execute the command:
 
 ```bash
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-doc/.processes/my_api_process.json <task_data>
+API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/my_api_process.json <task_data>
 ```
 
 Where:
@@ -276,7 +276,7 @@ Where:
 #### Example:
 
 ```bash
-API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-doc/.processes/my_api_process.json '{"key1":"val1"}'
+API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/my_api_process.json '{"key1":"val1"}'
 ```
 
 The verification must pass successfully.

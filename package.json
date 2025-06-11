@@ -1,5 +1,5 @@
 {
-  "name": "corezoid-doc",
+  "name": "corezoid-ai-doc",
   "version": "1.0.0",
   "description": "Documentation for Corezoid",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.corezoid.com:documentation/corezoid-doc.git"
+    "url": "git@git.corezoid.com:documentation/corezoid-ai-doc.git"
   },
   "keywords": [
     "corezoid",

@@ -30,10 +30,10 @@ To work, we need to export the current version of the process for modification:
 
 ```bash
 # Process export
-cd ~/repos/corezoid-doc/scripts/validation/ && \
-COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKSPACE_ID=<COREZOID_WORKSPACE_ID> COREZOID_PROC_ID=<COREZOID_PROC_ID> convctl.sh get ~/repos/corezoid-doc/result/target_process.json
+cd ~/repos/corezoid-ai-doc/scripts/validation/ && \
+COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKSPACE_ID=<COREZOID_WORKSPACE_ID> COREZOID_PROC_ID=<COREZOID_PROC_ID> convctl.sh get ~/repos/corezoid-ai-doc/result/target_process.json
 ```
-where ~/repos/corezoid-doc/result/target_process.json - is where the exported JSON process will be saved
+where ~/repos/corezoid-ai-doc/result/target_process.json - is where the exported JSON process will be saved
 
 ---
 
@@ -42,8 +42,8 @@ where ~/repos/corezoid-doc/result/target_process.json - is where the exported JS
 ### 4.1. Exporting the Current Process
 
 ```bash
-cd ~/repos/corezoid-doc/scripts/validation/ && \
-COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKSPACE_ID=<COREZOID_WORKSPACE_ID> COREZOID_PROC_ID=<COREZOID_PROC_ID> convctl.sh get ~/repos/corezoid-doc/result/target_process.json
+cd ~/repos/corezoid-ai-doc/scripts/validation/ && \
+COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKSPACE_ID=<COREZOID_WORKSPACE_ID> COREZOID_PROC_ID=<COREZOID_PROC_ID> convctl.sh get ~/repos/corezoid-ai-doc/result/target_process.json
 ```
 
 ### 4.2. Error Analysis and Identifying Node(s) for Fixing
@@ -54,8 +54,8 @@ COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKS
 ### 4.4. Testing the Process by Executing a Test Request
 
 ```bash
-cd ~/repos/corezoid-doc/scripts/validation/ && \
-COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKSPACE_ID=<COREZOID_WORKSPACE_ID> COREZOID_PROC_ID=<COREZOID_PROC_ID> convctl.sh run ~/repos/corezoid-doc/result/target_process.json '<input_task_data>'
+cd ~/repos/corezoid-ai-doc/scripts/validation/ && \
+COREZOID_LOGIN=<COREZOID_LOGIN> COREZOID_SECRET=<COREZOID_SECRET> COREZOID_WORKSPACE_ID=<COREZOID_WORKSPACE_ID> COREZOID_PROC_ID=<COREZOID_PROC_ID> convctl.sh run ~/repos/corezoid-ai-doc/result/target_process.json '<input_task_data>'
 ```
 Where:
 

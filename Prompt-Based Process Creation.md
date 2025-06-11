@@ -11,7 +11,7 @@ This solution, powered by Devin AI, enables the creation and modification of pro
 
 ## Quick Start
 
-The solution operates through Devin sessions. Each session must include the `corezoid-doc` project and the corresponding prompt playbook.
+The solution operates through Devin sessions. Each session must include the `corezoid-ai-doc` project and the corresponding prompt playbook.
 
 ### Required Variables  in Playbooks
 
