@@ -1,11 +1,11 @@
-# Corezoid Documentation
+# Corezoid AI Documentation
 
-This repository contains comprehensive documentation for Corezoid, a process engine platform for
-creating business processes, services, and applications.
+This repository contains comprehensive documentation for Corezoid AI, a process engine platform for
+creating business processes, services, and applications powered by artificial intelligence. The documentation is enhanced with AI capabilities to provide better guidance and examples.
 
 ## 🔍 Overview
 
-Corezoid is a powerful process engine that enables:
+Corezoid AI is a powerful process engine that enables:
 - Visual design of business processes through connected nodes
 - Data processing with various node types (API calls, code execution, conditions)
 - Integration with external systems through standardized interfaces
@@ -186,4 +186,5 @@ When creating merge requests:
 
 ## 📄 License
 
-Proprietary - All rights reserved.
+MIT License - See LICENSE file for details.
+
