@@ -1,0 +1,223 @@
+{
+  "conv_type": "process",
+  "description": "Process to create multiple actors and share them with a user",
+  "obj_id": 1670561,
+  "obj_type": 1,
+  "params": [
+    {
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "form_id",
+      "type": "number"
+    },
+    {
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "workspace_id",
+      "type": "string"
+    },
+    {
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "count",
+      "type": "number"
+    },
+    {
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "prefix_name",
+      "type": "string"
+    },
+    {
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "user_id",
+      "type": "number"
+    }
+  ],
+  "parent_id": null,
+  "ref_mask": true,
+  "scheme": {
+    "nodes": [
+      {
+        "condition": {
+          "logics": [
+            {
+              "to_node_id": "684b3826513aa075cf410ba6",
+              "type": "go"
+            }
+          ]
+        },
+        "id": "6849818a513aa075cfdaf95b",
+        "obj_type": 1,
+        "title": "Start",
+        "x": 600,
+        "y": 100
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "err_node_id": "684b3826513aa075cf410bab",
+              "lang": "js",
+              "src": "data.actors = [];\nfor (let i = 0; i \u003c data.count; i++) {\n  data.actors.push({\n    title: data.prefix_name + i,\n    formId: data.form_id\n  });\n}",
+              "type": "api_code"
+            },
+            {
+              "to_node_id": "684b3826513aa075cf410ba8",
+              "type": "go"
+            }
+          ]
+        },
+        "id": "684b3826513aa075cf410ba6",
+        "obj_type": 0,
+        "title": "Prepare Parameters",
+        "x": 500,
+        "y": 300
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "conv_id": 1660237,
+              "err_node_id": "684b3826513aa075cf410bad",
+              "extra": {
+                "actors": "{{actors}}"
+              },
+              "extra_type": {
+                "actors": "array"
+              },
+              "group": "all",
+              "type": "api_rpc",
+              "user_id": 68381
+            },
+            {
+              "to_node_id": "684b3826513aa075cf410ba9",
+              "type": "go"
+            }
+          ]
+        },
+        "id": "684b3826513aa075cf410ba8",
+        "obj_type": 0,
+        "title": "Create Actors",
+        "x": 500,
+        "y": 500
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "result": "success"
+              },
+              "res_data_type": {
+                "result": "string"
+              },
+              "throw_exception": false,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "684b3826513aa075cf410bb0",
+              "type": "go"
+            }
+          ]
+        },
+        "id": "684b3826513aa075cf410ba9",
+        "obj_type": 0,
+        "title": "Reply Success",
+        "x": 500,
+        "y": 700
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "error": "Code Node error"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "684b3826513aa075cf410baf",
+              "type": "go"
+            }
+          ]
+        },
+        "id": "684b3826513aa075cf410bab",
+        "obj_type": 0,
+        "title": "Reply Error from Code Node",
+        "x": 800,
+        "y": 300
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "error": "API call error"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "684b3826513aa075cf410baf",
+              "type": "go"
+            }
+          ]
+        },
+        "id": "684b3826513aa075cf410bad",
+        "obj_type": 0,
+        "title": "Reply Error from API Call",
+        "x": 800,
+        "y": 500
+      },
+      {
+        "condition": {
+          "logics": []
+        },
+        "id": "684b3826513aa075cf410baf",
+        "obj_type": 2,
+        "title": "Error Node",
+        "x": 900,
+        "y": 400
+      },
+      {
+        "condition": {
+          "logics": []
+        },
+        "id": "684b3826513aa075cf410bb0",
+        "obj_type": 2,
+        "options": "{\"save_task\":true}",
+        "title": "Final Node",
+        "x": 600,
+        "y": 900
+      }
+    ],
+    "web_settings": [
+      [],
+      []
+    ]
+  },
+  "status": "active",
+  "title": "Create Multiple Actors"
+}
