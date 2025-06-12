@@ -3,7 +3,7 @@
   "title": "Node Schema",
   "description": "Schema for nodes in Corezoid processes",
   "type": "object",
-  "required": ["id", "obj_type", "condition"],
+  "required": ["id", "obj_type", "condition","x","y"],
   "properties": {
     "id": {
       "type": "string",
@@ -28,10 +28,12 @@
     },
     "x": {
       "type": "integer",
+      "minimum": 0,
       "description": "X coordinate on canvas"
     },
     "y": {
       "type": "integer",
+      "minimum": 0,
       "description": "Y coordinate on canvas"
     },
     "extra": {

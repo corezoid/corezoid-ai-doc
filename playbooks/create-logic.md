@@ -197,9 +197,9 @@ Two separate nodes:
 
 ---
 
-## 4. 🧱 Examples of JSON Process Structures
-- [create-actors.json](../samples/create-actors.json)
-- [gpt-calculator.json](../samples/gpt-calculator.json)
+## 4. 🧱 Examples of JSON Process Structures from the repository
+- `~/repos/corezoid-ai-doc/samples/create-actors.json`
+- `~/repos/corezoid-ai-doc/samples/gpt-calculator.json`
 
 ## 5. ⚡ Important Details
 
@@ -212,23 +212,23 @@ Two separate nodes:
 
 ---
 
-## 6. 📚 Documentation Links
+## 6. 📚 It is very important to study the Documentation files from the repository
 
 - **Corezoid Node Types**:
-  - [start-node.md](./src/nodes/start-node.md)
-  - [code-node.md](./src/nodes/code-node.md)
-  - [code-node-libraries.md](./src/nodes/code-node-libraries.md)
-  - [call-process-node.md](./src/nodes/call-process-node.md)
-  - [reply-to-process-node.md](./src/nodes/reply-to-process-node.md)
-  - [end-node.md](../src/nodes/end-node.md)
+  - `~/repos/corezoid-ai-doc/src/nodes/start-node.md`
+  - `~/repos/corezoid-ai-doc/src/nodes/code-node.md`
+  - `~/repos/corezoid-ai-doc/src/nodes/code-node-libraries.md`
+  - `~/repos/corezoid-ai-doc/src/nodes/call-process-node.md`
+  - `~/repos/corezoid-ai-doc/src/nodes/reply-to-process-node.md`
+  - `~/repos/corezoid-ai-doc/src/nodes/end-node.md`
 
 - **Process Construction Rules**:
-  - [process-development-guide.md](./src/process/process-development-guide.md)
-  - [process-json-validation.md](./src/process/process-json-validation.md)
-  - [error-handling.md](./src/process/error-handling.md)
+  - `~/repos/corezoid-ai-doc/src/process/process-development-guide.md`
+  - `~/repos/corezoid-ai-doc/src/process/process-json-validation.md`
+  - `~/repos/corezoid-ai-doc/src/process/error-handling.md`
 
 - **Best Practices**:
-  - [node-positioning-best-practices.md](./src/process/node-positioning-best-practices.md)
+  - `~/repos/corezoid-ai-doc/src/process/node-positioning-best-practices.md`
 
 ## 7. 🧪 Instructions: Mandatory Verification of the Result (created JSON process)
 
