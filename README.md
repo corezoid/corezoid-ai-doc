@@ -63,18 +63,6 @@ Describes all Corezoid entities (folders, processes, nodes, logic)
   - Reference validation and relationship constraints
   - Version-specific schema variants
 
-  
-### Scripts (`/scripts`)
-
-- **Validation Scripts** - Tools for validating process JSON against schema
-  - `process-schema.json` - Definitive schema for process structure validation
-  - Validation utilities for ensuring process definitions meet required standards
-
-- **Node Positioning** - Utilities for properly positioning nodes in process diagrams
-  - `reposition-nodes.js` - Script for optimizing node layout in process diagrams
-
-- **Documentation Build** - Scripts for generating documentation outputs
-  - `build-docs.js` - Generates AI documentation from markdown sources
 
 ### Playbooks (`/playbooks`)
 All available playbooks

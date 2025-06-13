@@ -64,7 +64,6 @@
           "logics": [
             {
               "type": "api_rpc",
-              "user_id": 68381,
               "conv_id": 1660248,
               "group": "all",
               "err_node_id": "68307a3e513aa075cfa81ed8",
@@ -194,7 +193,6 @@
           "logics": [
             {
               "type": "api_rpc",
-              "user_id": 68381,
               "conv_id": 1660237,
               "group": "all",
               "err_node_id": "68307a3e513aa075cfa81ec8",

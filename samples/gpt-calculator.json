@@ -65,8 +65,7 @@
                 "model": "string"
               },
               "group": "all",
-              "type": "api_rpc",
-              "user_id": 68381
+              "type": "api_rpc"
             },
             {
               "to_node_id": "68418f1382ba9626707c4f5e",
