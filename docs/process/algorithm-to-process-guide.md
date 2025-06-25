@@ -486,7 +486,5 @@ efficient, maintainable, and resilient.
 
 - [Process Overview](README.md) - Definition, operational mechanics, and key features of Corezoid
   processes
-- [Best Practices for Building Fast and Effective Processes](best-practices.md) - Detailed
-  optimization techniques
 - [Process Output Parameters](process-output-parameters.md) - Documentation for defining output
   parameters

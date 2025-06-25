@@ -116,8 +116,7 @@ The Call a Process Node uses the `api_rpc` type in its JSON configuration:
           "param1": "string",
           "param2": "number"
         },
-        "group": "all",
-        "user_id": 56171
+        "group": "all"
       },
       {
         "type": "go",
@@ -158,8 +157,7 @@ doesn't respond within 10 minutes, the task is routed to a timeout error node:
         "err_node_id": "error_condition_node",
         "extra": {},
         "extra_type": {},
-        "group": "all",
-        "user_id": 56171
+        "group": "all"
       },
       {
         "type": "go",
