@@ -264,24 +264,7 @@ Applying symmetry to process layouts creates visually balanced and aesthetically
    - Center End nodes below their preceding nodes
    - This creates a clear visual entry and exit point for the process
 
-## Best Practices for the Calculator Example
 
-For the calculator process example:
-
-```
-Start Node:                 X=500, Y=100
-Validate Inputs:            X=500, Y=350
-Missing Num1 Error:         X=100, Y=200
-Missing Num2 Error:         X=100, Y=350
-Invalid Operation Error:    X=100, Y=500
-Division by Zero Check:     X=900, Y=350
-Division by Zero Error:     X=900, Y=600
-Perform Calculation:        X=500, Y=600
-Calculation Error:          X=900, Y=850
-Success Reply:              X=500, Y=850
-Error Reply:                X=500, Y=975
-Success End:                X=500, Y=1100
-Error End:                  X=900, Y=1100
 ```
 
 ## Related Documentation
