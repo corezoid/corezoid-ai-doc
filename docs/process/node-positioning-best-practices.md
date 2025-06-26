@@ -20,7 +20,7 @@ Corezoid nodes have specific dimensions that should be considered when positioni
 2. **Standard Nodes (without escalation or error links)**
 
    - Width: 200px
-   - Minimum Height: 100px
+   - Minimum Height: 150px
    - Actual height varies based on node content
    - Pivot Point: Top-left corner
 
@@ -65,7 +65,7 @@ alignment:
    - When aligning these nodes with Start/End nodes, proper offsets must be applied
 
 4. **Alignment Adjustment for Start/End Nodes**
-   - To align a Start/End node with other nodes vertically, add 100px to the X-coordinate of the
+   - To align a Start/End node with other nodes vertically, add 150px to the X-coordinate of the
      Start/End node
    - Example: If regular nodes are at X=500, place the Start/End node at X=600 to achieve visual
      alignment
@@ -88,7 +88,7 @@ alignment:
    - The main process flow (happy path) should flow vertically from top to bottom
    - Start node should be at the top of the process
    - End node(s) should be at the bottom of the process
-   - Maintain consistent vertical spacing between nodes (recommended: 100px)
+   - Maintain consistent vertical spacing between nodes (recommended: 150px)
 
 2. **Node Alignment**
    - Align nodes in the happy path along a central vertical axis
@@ -286,6 +286,5 @@ Error End:                  X=900, Y=1100
 
 ## Related Documentation
 
-- [Process Best Practices](best-practices.md)
 - [Converting Algorithms to Effective Processes](algorithm-to-process-guide.md)
 - [Execution Algorithm](execution-algorithm.md) - How processes are executed
