@@ -9,33 +9,47 @@
   "scheme": {
     "nodes": [
       {
-        "id": "686029d7e552e82315e0a74f",
+        "id": "68617e37e552e82315f92bf3",
         "obj_type": 0,
         "condition": {
           "logics": [
             {
-              "type": "api_rpc_reply",
-              "mode": "key_value",
-              "res_data": {
-                "description": "{{__conveyor_set_param_return_description__}}"
+              "type": "api_copy",
+              "conv_id": "@receiver-smart-api-system-transaction",
+              "ref": "{{root.task_id}}",
+              "mode": "create",
+              "group": "all",
+              "data": {
+                "eventType": "repeat_call_api",
+                "requestBody": "{{requestBody}}",
+                "url": "{{url}}",
+                "pathAndQuery": "{{pathAndQuery}}",
+                "responseBody": "{{responseBody}}",
+                "responseHeader": "{{responseHeaders}}",
+                "conveyorApiDebug": "{{__conveyor_api_debug__}}"
               },
-              "res_data_type": {
-                "description": "string"
+              "data_type": {
+                "eventType": "string",
+                "requestBody": "object",
+                "url": "string",
+                "pathAndQuery": "string",
+                "responseBody": "object",
+                "responseHeader": "object",
+                "conveyorApiDebug": "object"
               },
-              "throw_exception": true,
-              "exception_reason": "error_getting_configurations"
+              "err_node_id": "68602771e552e82315e085e7"
             },
             {
               "type": "go",
-              "to_node_id": "68602737e552e82315e082bf"
+              "to_node_id": "68602771e552e82315e085e7"
             }
           ],
           "semaphors": []
         },
-        "title": "Reply Error",
+        "title": "Send event to Smart API receiver",
         "description": "",
-        "x": 1228,
-        "y": 300,
+        "x": 1344,
+        "y": 828,
         "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
         "options": null
       },
@@ -55,241 +69,9 @@
         },
         "title": "",
         "description": "",
-        "x": 1136,
-        "y": 236,
+        "x": 1188,
+        "y": 220,
         "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "6862b163b677ac148d4ed4dc",
-        "obj_type": 0,
-        "condition": {
-          "logics": [
-            {
-              "type": "api_code",
-              "lang": "js",
-              "src": "// prepare the request for api call\ndata.requestBody = {}; // must be initialized for POST/PUT methods\ndata.pathAndQuery = \"\"; // must be initialized\ndata.url = \"\"; // must be initialized",
-              "err_node_id": "6862b163b677ac148d4ed4df"
-            },
-            {
-              "type": "go",
-              "to_node_id": "6861581db677ac148df2f91c"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "Prepare Request",
-        "description": "",
-        "x": 912,
-        "y": 236,
-        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "6861581db677ac148df2f91c",
-        "obj_type": 0,
-        "condition": {
-          "logics": [
-            {
-              "type": "api_copy",
-              "conv_id": "@receiver-smart-api-system-transaction",
-              "ref": "{{root.task_id}}",
-              "mode": "create",
-              "group": "all",
-              "data": {
-                "eventType": "before_call_api",
-                "requestBody": "{{requestBody}}",
-                "url": "{{url}}",
-                "pathAndQuery": "{{pathAndQuery}}"
-              },
-              "data_type": {
-                "eventType": "string",
-                "requestBody": "object",
-                "url": "string",
-                "pathAndQuery": "string"
-              },
-              "err_node_id": "68602771e552e82315e085e6"
-            },
-            {
-              "type": "go",
-              "to_node_id": "68602771e552e82315e085e6"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "Send event to Smart API receiver",
-        "description": "",
-        "x": 912,
-        "y": 452,
-        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "68602737e552e82315e082bf",
-        "obj_type": 2,
-        "condition": {
-          "logics": [],
-          "semaphors": []
-        },
-        "title": "error getting configurations",
-        "description": "",
-        "x": 1356,
-        "y": 328,
-        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-        "options": null
-      },
-      {
-        "id": "6862b163b677ac148d4ed4df",
-        "obj_type": 3,
-        "condition": {
-          "logics": [
-            {
-              "type": "go_if_const",
-              "to_node_id": "6862b163b677ac148d4ed4dd",
-              "conditions": [
-                {
-                  "fun": "eq",
-                  "const": "hardware",
-                  "param": "__conveyor_code_return_type_error__",
-                  "cast": "string"
-                }
-              ]
-            },
-            {
-              "type": "go_if_const",
-              "to_node_id": "686029d7e552e82315e0a74f",
-              "conditions": [
-                {
-                  "fun": "eq",
-                  "const": "software",
-                  "param": "__conveyor_code_return_type_error__",
-                  "cast": "string"
-                }
-              ]
-            },
-            {
-              "type": "go",
-              "to_node_id": "686029d7e552e82315e0a74f"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "",
-        "description": "",
-        "x": 1136,
-        "y": 300,
-        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "68602771e552e82315e085e6",
-        "obj_type": 3,
-        "condition": {
-          "logics": [
-            {
-              "type": "api",
-              "is_migrate": true,
-              "rfc_format": true,
-              "format": "",
-              "content_type": "application/json",
-              "method": "POST",
-              "url": "{{url}}{{pathAndQuery}}",
-              "raw_body": "{{requestBody}}",
-              "extra_headers": {
-                "content-type": ""
-              },
-              "cert_pem": "",
-              "max_threads": 5,
-              "send_sys": false,
-              "debug_info": true,
-              "err_node_id": "68602771e552e82315e085e9",
-              "customize_response": true,
-              "response": {
-                "responseHeaders": "{{header}}",
-                "responseBody": "{{body}}"
-              },
-              "response_type": {
-                "responseHeaders": "object",
-                "responseBody": "object"
-              },
-              "version": 2
-            },
-            {
-              "type": "go",
-              "to_node_id": "686159bee552e82315f60527"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "API Call",
-        "description": "",
-        "x": 912,
-        "y": 696,
-        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "68602725b677ac148ddda4da",
-        "obj_type": 1,
-        "condition": {
-          "logics": [
-            {
-              "type": "go",
-              "to_node_id": "6862b163b677ac148d4ed4dc"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "Start",
-        "description": "",
-        "x": 1012,
-        "y": 120,
-        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "686159bee552e82315f60527",
-        "obj_type": 0,
-        "condition": {
-          "logics": [
-            {
-              "type": "api_copy",
-              "conv_id": "@receiver-smart-api-system-transaction",
-              "ref": "{{root.task_id}}",
-              "mode": "create",
-              "group": "all",
-              "data": {
-                "eventType": "after_call_api",
-                "requestBody": "{{requestBody}}",
-                "url": "{{url}",
-                "pathAndQuery": "{{pathAndQuery}}",
-                "responseBody": "{{responseBody}}",
-                "responseHeader": "{{responseHeaders}}",
-                "conveyorApiDebug": "{{__conveyor_api_debug__}}"
-              },
-              "data_type": {
-                "eventType": "string",
-                "requestBody": "object",
-                "url": "string",
-                "pathAndQuery": "string",
-                "responseBody": "object",
-                "responseHeader": "object",
-                "conveyorApiDebug": "object"
-              },
-              "err_node_id": "686027e0e552e82315e08bf7"
-            },
-            {
-              "type": "go",
-              "to_node_id": "686027e0e552e82315e08bf7"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "Send event to Smart API receiver",
-        "description": "",
-        "x": 912,
-        "y": 904,
-        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
         "options": null
       },
       {
@@ -332,8 +114,8 @@
         },
         "title": "Send event to Smart API receiver",
         "description": "",
-        "x": 1232,
-        "y": 808,
+        "x": 1344,
+        "y": 924,
         "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
         "options": null
       },
@@ -405,53 +187,8 @@
         },
         "title": "",
         "description": "",
-        "x": 1128,
-        "y": 808,
-        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-        "options": null
-      },
-      {
-        "id": "68617e37e552e82315f92bf3",
-        "obj_type": 0,
-        "condition": {
-          "logics": [
-            {
-              "type": "api_copy",
-              "conv_id": "@receiver-smart-api-system-transaction",
-              "ref": "{{root.task_id}}",
-              "mode": "create",
-              "group": "all",
-              "data": {
-                "eventType": "repeat_call_api",
-                "requestBody": "{{requestBody}}",
-                "url": "{{url}}",
-                "pathAndQuery": "{{pathAndQuery}}",
-                "responseBody": "{{responseBody}}",
-                "responseHeader": "{{responseHeaders}}",
-                "conveyorApiDebug": "{{__conveyor_api_debug__}}"
-              },
-              "data_type": {
-                "eventType": "string",
-                "requestBody": "object",
-                "url": "string",
-                "pathAndQuery": "string",
-                "responseBody": "object",
-                "responseHeader": "object",
-                "conveyorApiDebug": "object"
-              },
-              "err_node_id": "68602771e552e82315e085e7"
-            },
-            {
-              "type": "go",
-              "to_node_id": "68602771e552e82315e085e7"
-            }
-          ],
-          "semaphors": []
-        },
-        "title": "Send event to Smart API receiver",
-        "description": "",
-        "x": 1128,
-        "y": 740,
+        "x": 1188,
+        "y": 912,
         "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
         "options": null
       },
@@ -481,9 +218,83 @@
         },
         "title": "Reply Error",
         "description": "",
-        "x": 1360,
-        "y": 808,
+        "x": 1524,
+        "y": 928,
         "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "686029d7e552e82315e0a74f",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "description": "{{__conveyor_set_param_return_description__}}"
+              },
+              "res_data_type": {
+                "description": "string"
+              },
+              "throw_exception": true,
+              "exception_reason": "error_getting_configurations"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68602737e552e82315e082bf"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply Error",
+        "description": "",
+        "x": 1372,
+        "y": 308,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "6862b163b677ac148d4ed4df",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "6862b163b677ac148d4ed4dd",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "hardware",
+                  "param": "__conveyor_code_return_type_error__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "686029d7e552e82315e0a74f",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "software",
+                  "param": "__conveyor_code_return_type_error__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "686029d7e552e82315e0a74f"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1192,
+        "y": 316,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
         "options": null
       },
       {
@@ -502,10 +313,185 @@
         },
         "title": "",
         "description": "",
-        "x": 1128,
-        "y": 664,
+        "x": 1192,
+        "y": 828,
         "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
         "options": null
+      },
+      {
+        "id": "68602771e552e82315e085e8",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "api call error",
+        "description": "",
+        "x": 1876,
+        "y": 964,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68602737e552e82315e082bf",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "error getting configurations",
+        "description": "",
+        "x": 1732,
+        "y": 340,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "686159bee552e82315f60527",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_copy",
+              "conv_id": "@receiver-smart-api-system-transaction",
+              "ref": "{{root.task_id}}",
+              "mode": "create",
+              "group": "all",
+              "data": {
+                "eventType": "after_call_api",
+                "requestBody": "{{requestBody}}",
+                "url": "{{url}",
+                "pathAndQuery": "{{pathAndQuery}}",
+                "responseBody": "{{responseBody}}",
+                "responseHeader": "{{responseHeaders}}",
+                "conveyorApiDebug": "{{__conveyor_api_debug__}}"
+              },
+              "data_type": {
+                "eventType": "string",
+                "requestBody": "object",
+                "url": "string",
+                "pathAndQuery": "string",
+                "responseBody": "object",
+                "responseHeader": "object",
+                "conveyorApiDebug": "object"
+              },
+              "err_node_id": "686027e0e552e82315e08bf7"
+            },
+            {
+              "type": "go",
+              "to_node_id": "686027e0e552e82315e08bf7"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Send event to Smart API receiver",
+        "description": "",
+        "x": 912,
+        "y": 1048,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68602771e552e82315e085e6",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "api",
+              "is_migrate": true,
+              "rfc_format": true,
+              "raw_body": "{{requestBody}}",
+              "format": "raw",
+              "content_type": "application/json",
+              "method": "GET",
+              "url": "{{url}}{{pathAndQuery}}",
+              "extra": {},
+              "extra_type": {},
+              "extra_headers": {
+                "content-type": "application/json"
+              },
+              "cert_pem": "",
+              "max_threads": 5,
+              "send_sys": false,
+              "debug_info": true,
+              "err_node_id": "68602771e552e82315e085e9",
+              "customize_response": true,
+              "response": {
+                "responseHeaders": "{{header}}",
+                "responseBody": "{{body}}"
+              },
+              "response_type": {
+                "responseHeaders": "object",
+                "responseBody": "object"
+              },
+              "version": 2
+            },
+            {
+              "type": "go",
+              "to_node_id": "686159bee552e82315f60527"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "API Call",
+        "description": "",
+        "x": 912,
+        "y": 840,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "6861581db677ac148df2f91c",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_copy",
+              "conv_id": "@receiver-smart-api-system-transaction",
+              "ref": "{{root.task_id}}",
+              "mode": "create",
+              "group": "all",
+              "data": {
+                "eventType": "before_call_api",
+                "requestBody": "{{requestBody}}",
+                "url": "{{url}}",
+                "pathAndQuery": "{{pathAndQuery}}"
+              },
+              "data_type": {
+                "eventType": "string",
+                "requestBody": "object",
+                "url": "string",
+                "pathAndQuery": "string"
+              },
+              "err_node_id": "68602771e552e82315e085e6"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68602771e552e82315e085e6"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Send event to Smart API receiver",
+        "description": "",
+        "x": 912,
+        "y": 596,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68602725b677ac148ddda4e2",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Final",
+        "description": "",
+        "x": 1012,
+        "y": 1516,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+        "options": "{\"save_task\":true}"
       },
       {
         "id": "686027e0e552e82315e08bf7",
@@ -533,37 +519,53 @@
         "title": "Reply",
         "description": "",
         "x": 912,
-        "y": 1140,
+        "y": 1284,
         "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
         "options": null
       },
       {
-        "id": "68602771e552e82315e085e8",
-        "obj_type": 2,
+        "id": "6862b163b677ac148d4ed4dc",
+        "obj_type": 0,
         "condition": {
-          "logics": [],
+          "logics": [
+            {
+              "type": "api_code",
+              "lang": "js",
+              "src": "// prepare the request for api call\ndata.requestBody = {}; // must be initialized for POST/PUT methods\ndata.pathAndQuery = \"\"; // must be initialized\ndata.url = \"\"; // must be initialized",
+              "err_node_id": "6862b163b677ac148d4ed4df"
+            },
+            {
+              "type": "go",
+              "to_node_id": "6861581db677ac148df2f91c"
+            }
+          ],
           "semaphors": []
         },
-        "title": "api call error",
+        "title": "Configuration",
         "description": "",
-        "x": 1668,
-        "y": 836,
-        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "x": 912,
+        "y": 236,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
         "options": null
       },
       {
-        "id": "68602725b677ac148ddda4e2",
-        "obj_type": 2,
+        "id": "68602725b677ac148ddda4da",
+        "obj_type": 1,
         "condition": {
-          "logics": [],
+          "logics": [
+            {
+              "type": "go",
+              "to_node_id": "6862b163b677ac148d4ed4dc"
+            }
+          ],
           "semaphors": []
         },
-        "title": "Final",
+        "title": "Start",
         "description": "",
         "x": 1012,
-        "y": 1372,
-        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
-        "options": "{\"save_task\":true}"
+        "y": 120,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
       }
     ],
     "web_settings": [

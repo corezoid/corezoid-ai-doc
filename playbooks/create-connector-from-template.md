@@ -129,7 +129,8 @@ Modify the API call configuration:
 **For POST/PUT requests**, add the request body:
 ```json
 {
-  "raw_body": "{{requestBody}}"
+  "raw_body": "{{requestBody}}",
+  "format": "raw"
 }
 ```
 
