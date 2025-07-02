@@ -61,7 +61,7 @@ The process must contain:
 }
 ```
 
-👉 params - all incoming parameters that the user should pass when calling the process. More details: [process-with-parameters.md](./src/process/process-with-parameters.md)
+👉 params - all incoming parameters that the user should pass when calling the process. More details: [process-with-parameters.md](./docs/process/process-with-parameters.md)
 
 ### 4.2 🧩 Process Node Details (nodes)
 
@@ -229,21 +229,21 @@ Two separate nodes:
 ## 7. 📚 Documentation Links
 
 - **Corezoid Node Types**:
-  - [start-node.md](./src/nodes/start-node.md)
-  - [code-node.md](./src/nodes/code-node.md)
-  - [code-node-libraries.md](./src/nodes/code-node-libraries.md)
-  - [api-call-node.md](./src/nodes/api-call-node.md)
-  - [reply-to-process-node.md](./src/nodes/reply-to-process-node.md)
-  - [end-node.md](./src/nodes/end-node.md)
+  - [start-node.md](./docs/nodes/start-node.md)
+  - [code-node.md](./docs/nodes/code-node.md)
+  - [code-node-libraries.md](./docs/nodes/code-node-libraries.md)
+  - [api-call-node.md](./docs/nodes/api-call-node.md)
+  - [reply-to-process-node.md](./docs/nodes/reply-to-process-node.md)
+  - [end-node.md](./docs/nodes/end-node.md)
 
 - **Process Construction Rules**:
-  - [process-development-guide.md](./src/process/process-development-guide.md)
-  - [process-json-validation.md](./src/process/process-json-validation.md)
-  - [error-handling.md](./src/process/error-handling.md)
+  - [process-development-guide.md](./docs/process/process-development-guide.md)
+  - [process-json-validation.md](./docs/process/process-json-validation.md)
+  - [error-handling.md](./docs/process/error-handling.md)
 
 - **Best Practices**:
-  - [node-positioning-best-practices.md](./src/process/node-positioning-best-practices.md?ref_type=heads)
-  - [common-validation-errors.md](./src/process/common-validation-errors.md)
+  - [node-positioning-best-practices.md](./docs/process/node-positioning-best-practices.md?ref_type=heads)
+  - [common-validation-errors.md](./docs/process/common-validation-errors.md)
 
 ## 8. 🧪 Instructions: Mandatory Verification of Results (created JSON process)
 
