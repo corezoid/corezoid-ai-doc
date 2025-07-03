@@ -25,7 +25,7 @@ jobs:
     - name: Set version from tag
       run: |
         VERSION=${GITHUB_REF#refs/tags/v}
-        npm version $VERSION --no-git-tag-version
+        sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json
 
     - name: Build package
       run: npm run build --if-present
