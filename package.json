@@ -1,6 +1,6 @@
 {
   "name": "@corezoid/corezoid-ai-doc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Corezoid AI Documentation and Templates",
   "main": "index.js",
   "files": [
