@@ -1,0 +1,27 @@
+{
+  "name": "@corezoid/corezoid-ai-doc",
+  "version": "1.0.0",
+  "description": "Corezoid AI Documentation and Templates",
+  "main": "index.js",
+  "files": [
+    "docs",
+    "json-schema",
+    "playbooks",
+    "samples",
+    "templates",
+    "convctl.sh"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/corezoid/corezoid-ai-doc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/corezoid/corezoid-ai-doc/issues"
+  },
+  "homepage": "https://github.com/corezoid/corezoid-ai-doc#readme"
+}
