@@ -61,7 +61,7 @@ The process must contain:
 }
 ```
 
-👉 params - all incoming parameters that the user should pass when calling the process. More details: [process-with-parameters.md](./docs/process/process-with-parameters.md)
+👉 params - all incoming parameters that the user should pass when calling the process. More details: [process-with-parameters.md](./src/process/process-with-parameters.md)
 
 ### 4.2 🧩 Process Node Details (nodes)
 
@@ -81,10 +81,29 @@ The process must contain:
 
 ```json
 {
-  "type": "api_code",
-  "lang": "js",
-  "src": "data.result = 10;",
-  "err_node_id": "reply-error-from-api-code"
+  "id": "<id>",
+  "obj_type": 0,
+  "condition": {
+    "logics": [
+      {
+        "type": "api_code",
+        "lang": "js",
+        "src": "data.result = 10;",
+        "err_node_id": "<error_node_id>"
+      },
+      {
+        "type": "go",
+        "to_node_id": "<next_node_id>"
+      }
+    ],
+    "semaphors": []
+  },
+  "title": "Prepare Data",
+  "description": "",
+  "x": 984,
+  "y": 216,
+  "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+  "options": null
 }
 ```
 
@@ -98,34 +117,53 @@ The process must contain:
 
 ```json
 {
-  "type": "api",
-  "rfc_format": true,
-  "format": "",
-  "content_type": "application/json",
-  "method": "GET",
-  "url": "https://example.com/your-api-endpoint",
-  "extra": {},
-  "extra_type": {},
-  "extra_headers": {
-    "content-type": "application/json; charset=utf-8"
+  "condition": {
+    "logics": [
+      {
+        "type": "api",
+        "rfc_format": true,
+        "format": "raw", // raw is used when the request body (raw_body field) is used,
+        "content_type": "application/json",
+        "method": "GET",
+        "url": "https://example.com/your-api-endpoint",
+        "extra_headers": {
+          "content-type": "application/json; charset=utf-8"
+        },
+        "raw_body":"{{request_body}}", // body for the request, can include dynamic references like {{body}}   (For POST/PUT methods)
+        "cert_pem": "",
+        "max_threads": 5,
+        "send_sys": false,
+        "debug_info": false,
+        "err_node_id": "<err_node_id>",
+        "customize_response": true,
+        "response": {
+          "header": "{{header}}",
+          "body": "{{body}}"
+        },
+        "response_type": {
+          "header": "object",
+          "body": "object"
+        },
+        "version": 2,
+        "is_migrate": true
+      },
+      {
+        "to_node_id": "<next_node_id>",
+        "type": "go"
+      }
+    ],
+    "semaphors": []
   },
-  "cert_pem": "",
-  "max_threads": 5,
-  "send_sys": false,
-  "debug_info": false,
-  "err_node_id": "reply-error-from-api-call",
-  "customize_response": true,
-  "response": {
-    "header": "{{header}}",
-    "body": "{{body}}"
-  },
-  "response_type": {
-    "header": "object",
-    "body": "object"
-  },
-  "version": 2,
-  "is_migrate": true
+  "description": "",
+  "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+  "id": "<id>",
+  "obj_type": 0,
+  "options": "{}",
+  "title": "API Call",
+  "x": 300,
+  "y": 100
 }
+
 ```
 
 **IMPORTANT**:
@@ -141,16 +179,35 @@ The process must contain:
 - Response:
 
 ```json
-{
-  "type": "api_rpc_reply",
-  "mode": "key_value",
-  "res_data": {
-    "responce": "{{body}}"
+ {
+  "id": "<id>",
+  "obj_type": 3,
+  "condition": {
+    "logics": [
+      {
+        "type": "api_rpc_reply",
+        "mode": "key_value",
+        "res_data": {
+          "responce": "{{body}}"
+        },
+        "res_data_type": {
+          "responce": "object"
+        },
+        "throw_exception": false
+      },
+      {
+        "type": "go",
+        "to_node_id": "<next_node_id>" // to final node
+      }
+    ],
+    "semaphors": []
   },
-  "res_data_type": {
-    "responce": "object"
-  },
-  "throw_exception": false
+  "title": "Success Reply",
+  "description": "",
+  "x": 1288,
+  "y": 1066,
+  "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+  "options": null
 }
 ```
 - After successful response — transition to the Final node.
@@ -165,15 +222,34 @@ Two separate nodes:
 
 ```json
 {
-  "type": "api_rpc_reply",
-  "mode": "key_value",
-  "res_data": {
-    "error": "Code Node error"
+  "id": "<id>",
+  "obj_type": 3,
+  "condition": {
+    "logics": [
+      {
+        "type": "api_rpc_reply",
+        "mode": "key_value",
+        "res_data": {
+          "error": "Code Node error"
+        },
+        "res_data_type": {
+          "error": "string"
+        },
+        "throw_exception": true
+      },
+      {
+        "type": "go",
+        "to_node_id": "<next_node_id>" // to final error node
+      }
+    ],
+    "semaphors": []
   },
-  "res_data_type": {
-    "error": "string"
-  },
-  "throw_exception": true
+  "title": "Reply Error - Code Node",
+  "description": "",
+  "x": 1288,
+  "y": 1066,
+  "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+  "options": null
 }
 ```
 
@@ -181,15 +257,34 @@ Two separate nodes:
 
 ```json
 {
-  "type": "api_rpc_reply",
-  "mode": "key_value",
-  "res_data": {
-    "error": "API call error"
+  "id": "<id>",
+  "obj_type": 3,
+  "condition": {
+    "logics": [
+      {
+        "type": "api_rpc_reply",
+        "mode": "key_value",
+        "res_data": {
+          "error": "API call error"
+        },
+        "res_data_type": {
+          "error": "string"
+        },
+        "throw_exception": true
+      },
+      {
+        "type": "go",
+        "to_node_id": "<next_node_id>" // to final error node
+      }
+    ],
+    "semaphors": []
   },
-  "res_data_type": {
-    "error": "string"
-  },
-  "throw_exception": true
+  "title": "Reply Error - API Call",
+  "description": "",
+  "x": 1288,
+  "y": 1066,
+  "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+  "options": null
 }
 ```
 
@@ -229,21 +324,21 @@ Two separate nodes:
 ## 7. 📚 Documentation Links
 
 - **Corezoid Node Types**:
-  - [start-node.md](./docs/nodes/start-node.md)
-  - [code-node.md](./docs/nodes/code-node.md)
-  - [code-node-libraries.md](./docs/nodes/code-node-libraries.md)
-  - [api-call-node.md](./docs/nodes/api-call-node.md)
-  - [reply-to-process-node.md](./docs/nodes/reply-to-process-node.md)
-  - [end-node.md](./docs/nodes/end-node.md)
+  - [start-node.md](./src/nodes/start-node.md)
+  - [code-node.md](./src/nodes/code-node.md)
+  - [code-node-libraries.md](./src/nodes/code-node-libraries.md)
+  - [api-call-node.md](./src/nodes/api-call-node.md)
+  - [reply-to-process-node.md](./src/nodes/reply-to-process-node.md)
+  - [end-node.md](./src/nodes/end-node.md)
 
 - **Process Construction Rules**:
-  - [process-development-guide.md](./docs/process/process-development-guide.md)
-  - [process-json-validation.md](./docs/process/process-json-validation.md)
-  - [error-handling.md](./docs/process/error-handling.md)
+  - [process-development-guide.md](./src/process/process-development-guide.md)
+  - [process-json-validation.md](./src/process/process-json-validation.md)
+  - [error-handling.md](./src/process/error-handling.md)
 
 - **Best Practices**:
-  - [node-positioning-best-practices.md](./docs/process/node-positioning-best-practices.md?ref_type=heads)
-  - [common-validation-errors.md](./docs/process/common-validation-errors.md)
+  - [node-positioning-best-practices.md](./src/process/node-positioning-best-practices.md?ref_type=heads)
+  - [common-validation-errors.md](./src/process/common-validation-errors.md)
 
 ## 8. 🧪 Instructions: Mandatory Verification of Results (created JSON process)
 
