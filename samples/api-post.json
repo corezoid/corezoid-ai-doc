@@ -1,0 +1,368 @@
+{
+    "obj_type": 1,
+    "title": "Create Actor EXAMPLE",
+    "description": "",
+    "status": "active",
+    "params": [
+      {
+        "name": "authorization_token",
+        "type": "string",
+        "descr": "Bearer token for API authentication",
+        "flags": [
+          "required",
+          "input"
+        ],
+        "regex": "^atn_[A-Za-z0-9]+$",
+        "regex_error_text": "Authorization token must start with 'atn_' followed by alphanumeric characters"
+      },
+      {
+        "name": "actor_name",
+        "type": "string",
+        "descr": "Name for the actor",
+        "flags": [
+          "required",
+          "input"
+        ],
+        "regex": "^.{1,255}$",
+        "regex_error_text": "Actor name must be between 1 and 255 characters"
+      },
+      {
+        "name": "form_id",
+        "type": "number",
+        "descr": "Form ID for the actor",
+        "flags": [
+          "required",
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "accId",
+        "type": "string",
+        "descr": "Account ID to display its data card",
+        "flags": [
+          "required",
+          "input"
+        ],
+        "regex": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "regex_error_text": "Account ID must be a valid UUID format"
+      },
+      {
+        "name": "ref",
+        "type": "string",
+        "descr": "Reference value for making actors API requests",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "descr": "Actor description",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "picture",
+        "type": "string",
+        "descr": "Actor picture URL",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "data",
+        "type": "object",
+        "descr": "Form fields values",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "appId",
+        "type": "string",
+        "descr": "Script actor ID",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "appSettings",
+        "type": "object",
+        "descr": "Script settings",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "viewData",
+        "type": "object",
+        "descr": "Data for company card",
+        "flags": [
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "response",
+        "type": "object",
+        "descr": "API response with created actor data",
+        "flags": [
+          "output"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      }
+    ],
+    "ref_mask": true,
+    "conv_type": "process",
+    "scheme": {
+      "nodes": [
+        {
+          "id": "6846e29d513aa075cf49b67f",
+          "obj_type": 3,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_rpc_reply",
+                "mode": "key_value",
+                "res_data": {
+                  "error": "API call error"
+                },
+                "res_data_type": {
+                  "error": "string"
+                },
+                "throw_exception": true
+              },
+              {
+                "type": "go",
+                "to_node_id": "6846e29d513aa075cf49b681"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Reply Error from API Call",
+          "description": "Returns error from API call",
+          "x": 800,
+          "y": 456,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "6846e29d513aa075cf49b682",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Final",
+          "description": "Process completed successfully",
+          "x": 600,
+          "y": 844,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+          "options": "{\"save_task\":true}"
+        },
+        {
+          "id": "6846e29d513aa075cf49b67c",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "api",
+                "is_migrate": true,
+                "rfc_format": true,
+                "format": "raw",
+                "raw_body": "{{reqBody}}",
+                "content_type": "application/json",
+                "method": "POST",
+                "url": "{{api_url}}",
+                "extra": {},
+                "extra_type": {},
+                "extra_headers": {
+                  "authorization": "{{authorization_header}}",
+                  "content-type": "application/json; charset=utf-8"
+                },
+                "cert_pem": "",
+                "max_threads": 5,
+                "send_sys": false,
+                "debug_info": false,
+                "err_node_id": "6846e29d513aa075cf49b67f",
+                "customize_response": true,
+                "response": {
+                  "body": "{{body}}",
+                  "header": "{{header}}"
+                },
+                "response_type": {
+                  "body": "object",
+                  "header": "object"
+                },
+                "version": 2
+              },
+              {
+                "type": "go",
+                "to_node_id": "6846e29d513aa075cf49b67d"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Create Actor API Call",
+          "description": "Calls Simulator API to create actor",
+          "x": 500,
+          "y": 432,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "6846e29d513aa075cf49b67a",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_code",
+                "lang": "js",
+                "src": "// Prepare API call parameters\ndata.api_url = \"https://api.simulator.company/v/1.0/actors/actor/\" + data.form_id;\ndata.authorization_header = \"Bearer \" + data.authorization_token;\n\n// Handle optional object parameters - convert empty strings to empty objects\nif (!data.data || data.data === \"\") {\n  data.data = {};\n}\nif (!data.appSettings || data.appSettings === \"\") {\n  data.appSettings = {};\n}\nif (!data.viewData || data.viewData === \"\") {\n  data.viewData = {};\n}\n\n// Handle required string fields - provide default values if empty\nif (!data.ref || data.ref === \"\") {\n  data.ref = \"default-ref\";\n}\nif (!data.description || data.description === \"\") {\n  data.description = \"\";\n}\nif (!data.picture || data.picture === \"\") {\n  data.picture = \"\";\n}\nif (!data.appId || data.appId === \"\") {\n  data.appId = \"\";\n}\n\n\ndata.reqBody ={\n    \"appId\": data.appId,\n    \"appSettings\": data.appSettings,\n    \"cardActorId\": data.accId,\n    \"data\": data.data,\n    \"description\": data.description,\n    \"picture\": data.picture,\n    \"ref\": data.ref,\n    \"title\": data.actor_name,\n    \"viewData\": data.viewData\n}",
+                "err_node_id": "6846e29d513aa075cf49b67e"
+              },
+              {
+                "type": "go",
+                "to_node_id": "6846e29d513aa075cf49b67c"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Prepare Parameters",
+          "description": "Prepares parameters for API call",
+          "x": 500,
+          "y": 252,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "6846e29d513aa075cf49b680",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Error",
+          "description": "Error end node for code node failures",
+          "x": 1144,
+          "y": 304,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+          "options": null
+        },
+        {
+          "id": "6846e29d513aa075cf49b67e",
+          "obj_type": 3,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_rpc_reply",
+                "mode": "key_value",
+                "res_data": {
+                  "error": "Code Node error"
+                },
+                "res_data_type": {
+                  "error": "string"
+                },
+                "throw_exception": true
+              },
+              {
+                "type": "go",
+                "to_node_id": "6846e29d513aa075cf49b680"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Reply Error from Code Node",
+          "description": "Returns error from code node",
+          "x": 800,
+          "y": 276,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "6846e29d513aa075cf49b681",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Error",
+          "description": "Error end node for API call failures",
+          "x": 1148,
+          "y": 484,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+          "options": null
+        },
+        {
+          "id": "6846e29d513aa075cf49b67d",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_rpc_reply",
+                "mode": "key_value",
+                "res_data": {
+                  "response": "{{body}}"
+                },
+                "res_data_type": {
+                  "response": "object"
+                },
+                "throw_exception": false
+              },
+              {
+                "type": "go",
+                "to_node_id": "6846e29d513aa075cf49b682"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Reply Success",
+          "description": "Returns successful response",
+          "x": 500,
+          "y": 632,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "6838651f513aa075cfeaa6a1",
+          "obj_type": 1,
+          "condition": {
+            "logics": [
+              {
+                "type": "go",
+                "to_node_id": "6846e29d513aa075cf49b67a"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Start",
+          "description": "Process entry point",
+          "x": 600,
+          "y": 100,
+          "extra": "{\"icon\":\"\",\"modeForm\":\"collapse\"}",
+          "options": "{\"direct_url\":true,\"type_auth\":\"no_auth\"}"
+        }
+      ],
+      "web_settings": [
+        [],
+        []
+      ]
+    }
+}

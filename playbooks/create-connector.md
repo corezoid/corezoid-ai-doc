@@ -224,7 +224,7 @@ Two separate nodes:
 ---
 
 ## 6. 🧱 Examples of JSON Process Structures
-- [exchangeratesapi.json](./samples/exchangeratesapi.json)
+- [api-post.json](./samples/api-post.json)
 
 ## 7. 📚 Documentation Links
 
