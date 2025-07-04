@@ -97,33 +97,54 @@ Modify the API call configuration:
 
 ```json
 {
-  "type": "api",
-  "rfc_format": true,
-  "format": "",
-  "content_type": "application/json",
-  "method": "GET", // Change to appropriate method (GET, POST, PUT, DELETE)
-  "url": "{{url}}{{pathAndQuery}}", // Use prepared values
-  "extra_headers": {
-    "content-type": "application/json", // Adjust as needed
-    "Authorization": "Bearer {{API_TOKEN}}" // Add auth headers if needed
+  "condition": {
+    "logics": [
+      {
+        "type": "api",
+        "rfc_format": true,
+        "format": "raw", // raw is used when the request body (raw_body field) is used,
+        "content_type": "application/json",
+        "method": "GET", // Change to appropriate method (GET, POST, PUT, DELETE)
+        "url": "{{url}}{{pathAndQuery}}",
+        "extra_headers": {
+          "content-type": "application/json", // Adjust as needed
+          "Authorization": "Bearer {{API_TOKEN}}" // Add auth headers if needed
+        },
+        "raw_body":"{{requestBody}}", // body for the request, can include dynamic references like {{requestBody}}   (For POST/PUT methods)
+        "cert_pem": "",
+        "max_threads": 5,
+        "send_sys": false,
+        "debug_info": false,
+        "err_node_id": "<err_node_id>",
+        "customize_response": true,
+        "response": {
+          "responseHeaders": "{{header}}",
+          "responseBody": "{{body}}"
+        },
+        "response_type": {
+          "header": "object",
+          "body": "object"
+        },
+        "version": 2,
+        "is_migrate": true
+      },
+      {
+        "to_node_id": "<next_node_id>",
+        "type": "go"
+      }
+    ],
+    "semaphors": []
   },
-  "cert_pem": "",
-  "max_threads": 5,
-  "send_sys": false,
-  "debug_info": true,
-  "err_node_id": "68602771e552e82315e085e9",
-  "customize_response": true,
-  "response": {
-    "responseHeaders": "{{header}}",
-    "responseBody": "{{body}}"
-  },
-  "response_type": {
-    "responseHeaders": "object",
-    "responseBody": "object"
-  },
-  "version": 2,
-  "is_migrate": true
+  "description": "",
+  "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+  "id": "<id>",
+  "obj_type": 0,
+  "options": "{}",
+  "title": "API Call",
+  "x": 300,
+  "y": 100
 }
+
 ```
 
 **For POST/PUT requests**, add the request body:
@@ -190,5 +211,5 @@ Only focus on the API-specific logic in the two designated nodes.
 
 ## 8. =� Related Documentation
 - [Original Connector Guide](./playbooks/create-connector.md)
-- [Template File](./templates/connector.json)
+- [Template File](./templates/api-connector.json)
 - [Node Documentation](./docs/nodes/)
