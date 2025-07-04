@@ -17,7 +17,7 @@ All these parameters must be passed when calling the convctl.sh command.
 
 ## 2. =� Template Structure
 
-The template `templates/connector.json` contains a complete process with all necessary nodes:
+The template `templates/api-connector.json` contains a complete process with all necessary nodes:
 
 1. **Start** - process entry point
 2. **Prepare Request** - data preparation node (MODIFY THIS)
@@ -159,7 +159,7 @@ Modify the API call configuration:
 
 ## 4. =� Implementation Steps
 
-1. **Copy the template**: Start with `templates/connector.json`
+1. **Copy the template**: Start with `templates/api-connector.json`
 2. **Configure parameters**: Define all incoming parameters in `params`
 3. **Analyze the API**: Understand the target API structure
 4. **Modify "Prepare Request"**: Set `data.url`, `data.pathAndQuery`, and `data.requestBody`
@@ -170,14 +170,14 @@ Modify the API call configuration:
 
 ## 5. =� Key Requirements
 
-| Element | Requirement |
-|:--------|:------------|
-| Template base | Must use `templates/connector.json` |
-| Process params | Must configure incoming parameters |
-| Nodes to modify | Only "Prepare Request" and "API Call" |
+| Element | Requirement                                         |
+|:--------|:----------------------------------------------------|
+| Template base | Must use `templates/api-connector.json`             |
+| Process params | Must configure incoming parameters                  |
+| Nodes to modify | Only "Prepare Request" and "API Call"               |
 | Required fields | `data.url`, `data.pathAndQuery`, `data.requestBody` |
-| API Call method | Must match the target API requirements |
-| Error handling | Pre-configured, do not modify |
+| API Call method | Must match the target API requirements              |
+| Error handling | Pre-configured, do not modify                       |
 
 ---
 
@@ -210,6 +210,5 @@ Only focus on the API-specific logic in the two designated nodes.
 ---
 
 ## 8. =� Related Documentation
-- [Original Connector Guide](./playbooks/create-connector.md)
 - [Template File](./templates/api-connector.json)
 - [Node Documentation](./docs/nodes/)
