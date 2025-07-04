@@ -6,6 +6,14 @@
   "required": ["type", "mode", "group"],
   "additionalProperties": false,
   "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Project ID"
+    },
+    "stage_id": {
+      "type": "string",
+      "description": "Stage ID"
+    },
     "type": {
       "type": "string",
       "enum": ["api_copy"],
