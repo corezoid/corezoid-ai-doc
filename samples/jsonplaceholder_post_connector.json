@@ -1,0 +1,251 @@
+{
+  "conv_type": "process",
+  "description": "Connector for POST requests to JSONPlaceholder API",
+  "obj_id": 1681677,
+  "obj_type": 1,
+  "params": [],
+  "parent_id": null,
+  "ref_mask": true,
+  "scheme": {
+    "nodes": [
+      {
+        "condition": {
+          "logics": [
+            {
+              "to_node_id": "685d4513e552e823155fd4b4",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "id": "685d4468b677ac148d5cd2b9",
+        "obj_type": 1,
+        "options": null,
+        "title": "Start",
+        "x": 400,
+        "y": 100
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "err_node_id": "685d4513e552e823155fd4bc",
+              "lang": "js",
+              "src": "data.title = \"foo\";\ndata.body = \"bar\";\ndata.userId = 1;",
+              "type": "api_code"
+            },
+            {
+              "to_node_id": "685d4513e552e823155fd4b9",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "685d4513e552e823155fd4b4",
+        "obj_type": 0,
+        "options": null,
+        "title": "Prepare Data",
+        "x": 300,
+        "y": 200
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "cert_pem": "",
+              "content_type": "application/json",
+              "customize_response": true,
+              "debug_info": false,
+              "err_node_id": "685d4513e552e823155fd4bd",
+              "extra": {
+                "body": "{{body}}",
+                "title": "{{title}}",
+                "userId": "{{userId}}"
+              },
+              "extra_headers": {
+                "content-type": "application/json"
+              },
+              "extra_type": {
+                "body": "string",
+                "title": "string",
+                "userId": "number"
+              },
+              "format": "",
+              "is_migrate": true,
+              "max_threads": 5,
+              "method": "POST",
+              "response": {
+                "body": "{{body}}",
+                "header": "{{header}}"
+              },
+              "response_type": {
+                "body": "object",
+                "header": "object"
+              },
+              "rfc_format": true,
+              "send_sys": false,
+              "type": "api",
+              "url": "https://jsonplaceholder.typicode.com/posts",
+              "version": 2
+            },
+            {
+              "to_node_id": "685d4513e552e823155fd4ba",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "685d4513e552e823155fd4b9",
+        "obj_type": 0,
+        "options": "{}",
+        "title": "API Call",
+        "x": 300,
+        "y": 300
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "response": "{{body}}"
+              },
+              "res_data_type": {
+                "response": "object"
+              },
+              "throw_exception": false,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "685d4513e552e823155fd4bf",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "685d4513e552e823155fd4ba",
+        "obj_type": 0,
+        "options": "{}",
+        "title": "Reply Success",
+        "x": 300,
+        "y": 400
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "error": "Code Node error"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "685d4513e552e823155fd4c1",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "685d4513e552e823155fd4bc",
+        "obj_type": 0,
+        "options": null,
+        "title": "Reply Error from Code",
+        "x": 500,
+        "y": 200
+      },
+      {
+        "condition": {
+          "logics": [
+            {
+              "mode": "key_value",
+              "res_data": {
+                "error": "API call error"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true,
+              "type": "api_rpc_reply"
+            },
+            {
+              "to_node_id": "685d4513e552e823155fd4c5",
+              "type": "go"
+            }
+          ],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"icon\":\"\",\"modeForm\":\"expand\"}",
+        "id": "685d4513e552e823155fd4bd",
+        "obj_type": 0,
+        "options": null,
+        "title": "Reply Error from API Call",
+        "x": 500,
+        "y": 300
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+        "id": "685d4513e552e823155fd4bf",
+        "obj_type": 2,
+        "options": "{\"save_task\":true}",
+        "title": "Final",
+        "x": 400,
+        "y": 500
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "id": "685d4513e552e823155fd4c1",
+        "obj_type": 2,
+        "options": null,
+        "title": "Error",
+        "x": 600,
+        "y": 200
+      },
+      {
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "description": "",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "id": "685d4513e552e823155fd4c5",
+        "obj_type": 2,
+        "options": null,
+        "title": "Error",
+        "x": 600,
+        "y": 300
+      }
+    ],
+    "web_settings": [
+      [],
+      []
+    ]
+  },
+  "status": "active",
+  "title": "JSONPlaceholder POST Connector"
+}
