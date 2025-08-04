@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/corezoid/corezoid-ai-doc/issues"
   },
-  "homepage": "https://github.com/corezoid/corezoid-ai-doc#readme"
+  "homepage": "https://github.com/corezoid/corezoid-ai-doc#readme",
+  "dependencies": {
+    "@corezoid/convctl": "^1.0.134219"
+  }
 }
