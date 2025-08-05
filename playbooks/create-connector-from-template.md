@@ -43,16 +43,26 @@ The template `templates/api-connector.json` contains a complete process with all
   "title": "My API Connector",
   "params": [
     {
-      "id": "userId",
-      "name": "User ID",
-      "type": "string",
-      "required": true
+      "descr": "Description of the field",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "field1", // must be changed based on logic
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
     },
     {
-      "id": "email",
-      "name": "Email Address", 
-      "type": "string",
-      "required": false
+      "descr": "Description of the field",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "field2", // must be changed based on logic
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
     }
   ],
   "scheme": {

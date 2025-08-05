@@ -5,7 +5,19 @@
   "title": "Template - Smart API",
   "description": "",
   "status": "active",
-  "params": [],
+  "params": [
+    {
+      "descr": "Description of the field",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "name": "field1",
+      "regex": "",
+      "regex_error_text": "",
+      "type": "string"
+    }
+  ],
   "ref_mask": true,
   "conv_type": "process",
   "scheme": {
