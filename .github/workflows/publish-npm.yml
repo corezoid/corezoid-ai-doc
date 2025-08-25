@@ -11,6 +11,14 @@ jobs:
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            convctl-package: '@corezoid/convctl-linux-x64@1.0.146081'
+          - arch: arm64
+            convctl-package: '@corezoid/convctl-linux-arm64@1.0.146081'
 
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +35,20 @@ jobs:
         VERSION=${GITHUB_REF#refs/tags/v}
         sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json
 
+    - name: Update convctl dependency for architecture
+      run: |
+        # Remove the generic convctl dependency
+        npm uninstall @corezoid/convctl
+        # Install the architecture-specific convctl package
+        npm install ${{ matrix.convctl-package }}
+
     - name: Build package
       run: npm run build --if-present
+
+    - name: Update package name for architecture
+      run: |
+        ARCH_SUFFIX="-${{ matrix.arch }}"
+        sed -i "s/\"@corezoid\/corezoid-ai-doc\"/\"@corezoid\/corezoid-ai-doc${ARCH_SUFFIX}\"/" package.json
 
     - name: Publish to GitHub Packages
       run: npm publish

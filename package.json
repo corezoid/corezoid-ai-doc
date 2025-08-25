@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/corezoid/corezoid-ai-doc#readme",
   "dependencies": {
-    "@corezoid/convctl": "^1.0.134219"
+    "@corezoid/convctl": "^1.0.146081"
   }
 }
