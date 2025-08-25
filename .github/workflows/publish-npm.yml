@@ -41,6 +41,8 @@ jobs:
         npm uninstall @corezoid/convctl
         # Install the architecture-specific convctl package
         npm install ${{ matrix.convctl-package }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build package
       run: npm run build --if-present
