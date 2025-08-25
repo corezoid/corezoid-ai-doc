@@ -39,8 +39,8 @@ jobs:
       run: |
         # Remove the generic convctl dependency
         npm uninstall @corezoid/convctl
-        # Install the architecture-specific convctl package
-        npm install ${{ matrix.convctl-package }}
+        # Install the architecture-specific convctl package (ignore platform checks)
+        npm install ${{ matrix.convctl-package }} --force
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
