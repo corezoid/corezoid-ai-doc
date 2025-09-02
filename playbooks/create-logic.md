@@ -6,8 +6,7 @@ The user must describe the business logic, specify the input parameters and what
 
 The user must specify the following parameters:
 - API_URL
-- API_LOGIN
-- API_SECRET
+- API_TOKEN
 - WORKSPACE_ID
 - ROOT_FOLDER_ID
 - PROC_ID
@@ -22,7 +21,7 @@ Before starting work, you need to export all existing project processes:
 
 ```bash
 # Export processes by folder id
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-folder <ROOT_FOLDER_ID> ~/repos/corezoid-ai-doc/.processes
+API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-folder <ROOT_FOLDER_ID> ~/repos/corezoid-ai-doc/.processes
 ```
 where ~/repos/corezoid-ai-doc/.processes is the folder where all exported JSON processes of the project will be saved.
 
@@ -249,7 +248,7 @@ For example: `~/repos/corezoid-ai-doc/.processes/my_api_process.json`.
 Go to the directory with the validation script and execute the command:
 
 ```bash
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/my_api_process.json <task_data>
+API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/my_api_process.json <task_data>
 ```
 
 Where:
@@ -259,7 +258,7 @@ Where:
 #### Example:
 
 ```bash
-API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/my_api_process.json '{"key1":"val1"}'
+API_URL=https://admin.corezoid.com API_TOKEN=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/my_api_process.json '{"key1":"val1"}'
 ```
 
 The verification must pass successfully.

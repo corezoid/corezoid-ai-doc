@@ -5,8 +5,7 @@ Modification/change of an existing Corezoid process with already defined busines
 - The user must describe the changes that need to be made to the existing logic.
   The user must specify the following parameters:
   - API_URL
-  - API_LOGIN
-  - API_SECRET
+  - API_TOKEN
   - WORKSPACE_ID
   - ROOT_FOLDER_ID
   - PROC_ID
@@ -18,7 +17,7 @@ Before starting work, you need to export all existing project processes:
 
 ```bash
 # Export processes by folder id
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-folder <ROOT_FOLDER_ID> ~/repos/corezoid-ai-doc/.processes
+API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-folder <ROOT_FOLDER_ID> ~/repos/corezoid-ai-doc/.processes
 ```
 where ~/repos/corezoid-ai-doc/.processes is the folder where all exported JSON processes of the project will be saved
 
@@ -33,7 +32,7 @@ For our work, we need to export the current version of the process for modificat
 
 ```bash
 # Process export
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/target_process.json
+API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh fetch-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/target_process.json
 ```
 where ~/repos/corezoid-ai-doc/.processes/target_process.json is where the exported JSON process will be saved for editing
 
@@ -47,7 +46,7 @@ Make all changes to the JSON process in the ~/repos/corezoid-ai-doc/.processes/t
 Execute the command:
 
 ```bash
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/target_process.json <task_data>
+API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/target_process.json <task_data>
 ```
 
 Where:
@@ -57,7 +56,7 @@ Where:
 #### Example:
 
 ```bash
-API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/target_process.json '{"key1":"val1"}'
+API_URL=https://admin.corezoid.com API_TOKEN=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/target_process.json '{"key1":"val1"}'
 
 ```
 

@@ -6,8 +6,7 @@ This playbook describes creating a Corezoid connector using the existing templat
 
 The user must specify the following parameters:
 - API_URL
-- API_LOGIN
-- API_SECRET
+- API_TOKEN
 - WORKSPACE_ID
 - PROC_ID
 
@@ -204,12 +203,12 @@ Save the modified process to:
 ### 6.2 =
  Test the Process
 ```bash
-API_URL=<API_URL> API_LOGIN=<API_LOGIN> API_SECRET=<API_SECRET> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/my_api_process.json <task_data>
+API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh run-process <PROC_ID> ~/repos/corezoid-ai-doc/.processes/my_api_process.json <task_data>
 ```
 
 **Example:**
 ```bash
-API_URL=https://admin.corezoid.com API_LOGIN=123 API_SECRET=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/my_api_process.json '{"userId":"123"}'
+API_URL=https://admin.corezoid.com  API_TOKEN=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/my_api_process.json '{"userId":"123"}'
 ```
 
 ---
