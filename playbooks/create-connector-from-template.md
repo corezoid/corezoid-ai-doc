@@ -9,6 +9,7 @@ The user must specify the following parameters:
 - API_TOKEN
 - WORKSPACE_ID
 - PROC_ID
+- PROCESS_METRIC_ID
 
 All these parameters must be passed when calling the convctl.sh command.
 
@@ -162,6 +163,18 @@ Modify the API call configuration:
   "raw_body": "{{requestBody}}",
   "format": "raw"
 }
+```
+
+### 3.4 Replace PROCESS_METRIC_ID 
+
+replace `{{PROCESS_METRIC_ID}}` from the template with the PROCESS_METRIC_ID value that was passed in the parameters
+
+**Example:**
+```
+if 
+  PROCESS_METRIC_ID=1234567
+then 
+  {{PROCESS_METRIC_ID}} -> 1234567
 ```
 
 ---
