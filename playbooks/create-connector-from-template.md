@@ -223,6 +223,7 @@ API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh
 ```bash
 API_URL=https://admin.corezoid.com  API_TOKEN=123 WORKSPACE_ID=123 ./convctl.sh run-process 123 ~/repos/corezoid-ai-doc/.processes/my_api_process.json '{"userId":"123"}'
 ```
+If you receive the message "Task completed", you need to check the response from the API. If something is wrong, fix it.
 
 ---
 

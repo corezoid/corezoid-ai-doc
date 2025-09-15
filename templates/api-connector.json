@@ -39,7 +39,81 @@
                 "data_type": {
                   "__conveyor_api_debug__": "object"
                 },
-                "err_node_id": "68c41de4b677ac95d136ae0c"
+                "err_node_id": "68c80887b677ac95d1b8dd8c"
+              },
+              {
+                "type": "go",
+                "to_node_id": "68c8085bb677ac95d1b8d1af"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Copy into the metrics analysis process",
+          "description": "",
+          "x": 1644,
+          "y": 2316,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68c41d48b677ac95d13666d7",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Success Final",
+          "description": "",
+          "x": 1744,
+          "y": 2776,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+          "options": null
+        },
+        {
+          "id": "68c80887b677ac95d1b8dd8c",
+          "obj_type": 3,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_sum",
+                "extra": [
+                  {
+                    "id": "1757939859025",
+                    "name": "error_send_to_metric",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "go",
+                "to_node_id": "68c8085bb677ac95d1b8d1af"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Error send to metric",
+          "description": "",
+          "x": 1936,
+          "y": 2408,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68c8085bb677ac95d1b8d1af",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "go_if_const",
+                "to_node_id": "68c80869e552e8d570b8d5d4",
+                "conditions": [
+                  {
+                    "param": "{{__conveyor_api_debug__.http_res_code}}",
+                    "const": "^2",
+                    "fun": "regexp",
+                    "cast": "string"
+                  }
+                ]
               },
               {
                 "type": "go",
@@ -48,11 +122,25 @@
             ],
             "semaphors": []
           },
-          "title": "Copy into the metrics analysis process",
+          "title": "Check code",
           "description": "",
           "x": 1644,
-          "y": 2364,
+          "y": 2512,
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68c80869e552e8d570b8d5d4",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "API Call Error",
+          "description": "",
+          "x": 1940,
+          "y": 2608,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
           "options": null
         },
         {
@@ -157,20 +245,6 @@
           "x": 1644,
           "y": 1836,
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c41de4b677ac95d136ae0c",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1916,
-          "y": 2472,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
           "options": null
         },
         {
@@ -332,20 +406,6 @@
           "x": 964,
           "y": 2172,
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c41d48b677ac95d13666d7",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Final",
-          "description": "",
-          "x": 1744,
-          "y": 2588,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
           "options": null
         },
         {
@@ -599,5 +659,5 @@
         [],
         []
       ]
-    }
-  }
+    },
+}
