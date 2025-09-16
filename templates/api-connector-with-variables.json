@@ -31,7 +31,7 @@
               {
                 "type": "api_code",
                 "lang": "js",
-                "src": "\n\n// prepare the request for api call\ndata.requestBody = {}; // must be initialized for POST/PUT methods\ndata.pathAndQuery = \"\"; // must be initialized",
+                "src": "\n\n// optionally, prepare the request for api call\ndata.requestBody = {}; // must be initialized for POST/PUT methods\ndata.pathAndQuery = \"\"; // must be initialized",
                 "err_node_id": "68c7d814e552e8d570a0eebd"
               },
               {
@@ -45,8 +45,7 @@
           "description": "(option)",
           "x": 964,
           "y": 1172,
-          "uuid": "842f0231-432d-4960-b989-d61c9985ebeb",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
         {
@@ -60,7 +59,6 @@
           "description": "",
           "x": 1232,
           "y": 1072,
-          "uuid": "e672a985-54b8-4a3e-bd13-e8a0d3018ca2",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
           "options": null
         },
@@ -92,7 +90,6 @@
           "description": "",
           "x": 964,
           "y": 980,
-          "uuid": "c03c2cb2-3074-4320-9ae8-9240c8f4f6ca",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -112,7 +109,6 @@
           "description": "",
           "x": 1064,
           "y": 868,
-          "uuid": "36bc6889-5f39-4d20-8e9a-8b6a7b3fba85",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
           "options": null
         },
@@ -142,7 +138,6 @@
           "description": "",
           "x": 964,
           "y": 1400,
-          "uuid": "07c1a61c-bdc1-498b-b359-cbd3b84557e3",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -174,7 +169,6 @@
           "description": "",
           "x": 1652,
           "y": 1344,
-          "uuid": "5f48560c-b82b-4170-9789-e1c44ecbc1e3",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -223,7 +217,6 @@
           "description": "",
           "x": 964,
           "y": 1640,
-          "uuid": "01af98ed-c46e-4ced-a1eb-d7e8dc002143",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -245,7 +238,6 @@
           "description": "",
           "x": 1360,
           "y": 1488,
-          "uuid": "143a03bb-0933-4016-a478-dddcdfa0ec46",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
           "options": null
         },
@@ -285,7 +277,6 @@
           "description": "",
           "x": 1644,
           "y": 2172,
-          "uuid": "27ad76a9-e8c3-4f72-8b31-fddf189e6094",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -315,7 +306,6 @@
           "description": "",
           "x": 1644,
           "y": 2028,
-          "uuid": "eb050da5-b718-4013-a8fa-745879564eea",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -345,7 +335,6 @@
           "description": "",
           "x": 964,
           "y": 2172,
-          "uuid": "b666bd28-e59d-427c-8b6f-bfb03b0ab428",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -389,7 +378,6 @@
           "description": "",
           "x": 1352,
           "y": 1344,
-          "uuid": "455ccf18-3b03-4732-9033-4fa2984d3241",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
           "options": null
         },
@@ -420,7 +408,6 @@
           "description": "",
           "x": 964,
           "y": 1908,
-          "uuid": "44337a88-54dc-4baf-89d8-56487aa32e87",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -450,7 +437,6 @@
           "description": "",
           "x": 1284,
           "y": 1640,
-          "uuid": "30d9608d-ffec-4eb5-b679-9a7635a5901e",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -465,7 +451,6 @@
           "description": "",
           "x": 1916,
           "y": 2472,
-          "uuid": "7a1208a9-701b-4a4c-85f5-f2ef08849f52",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
           "options": null
         },
@@ -497,7 +482,6 @@
           "description": "",
           "x": 1644,
           "y": 1836,
-          "uuid": "b5a990f9-3afb-4831-bbc6-e0c58fb921cd",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         },
@@ -571,7 +555,6 @@
           "description": "",
           "x": 1360,
           "y": 1836,
-          "uuid": "d56bba98-ae8e-4306-be8a-cbaaf5fbed7c",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
           "options": null
         },
@@ -586,7 +569,6 @@
           "description": "",
           "x": 1984,
           "y": 1372,
-          "uuid": "55a2e381-4864-40ab-8ece-ace48176f389",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
           "options": null
         },
@@ -601,7 +583,6 @@
           "description": "",
           "x": 1744,
           "y": 2588,
-          "uuid": "6ac8b280-3086-452a-9514-aadfaa9d387c",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
           "options": null
         },
@@ -623,7 +604,6 @@
           "description": "",
           "x": 1352,
           "y": 1172,
-          "uuid": "08619ae0-0ed2-4905-85a5-f37da6373f42",
           "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
           "options": null
         },
@@ -657,7 +637,6 @@
           "description": "",
           "x": 1644,
           "y": 2364,
-          "uuid": "b0955deb-bbcf-49e6-a588-8d74ae478146",
           "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
           "options": null
         }
@@ -666,7 +645,6 @@
         [],
         []
       ]
-    },
-    "uuid": "0fa2245e-9337-409d-a8da-99aa543a4aab"
+    }
   }
 ]
