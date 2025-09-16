@@ -10,6 +10,8 @@ The user must specify the following parameters:
 - WORKSPACE_ID
 - PROC_ID
 - PROCESS_METRIC_ID
+- PROJECT_ID 
+- ROOT_FOLDER_ID
 
 All these parameters must be passed when calling the convctl.sh command.
 
@@ -36,6 +38,50 @@ The template `templates/api-connector.json` contains a complete process with all
 ### 3.1 Process Parameters Configuration
 
 **IMPORTANT**: You must configure the `params` field in the root process object to define all incoming parameters that the user should pass when calling the process.
+
+### 3.1.1 Using Variables for API Parameters
+
+If you need to use API parameters like `url`, `login`, `secret`, etc., you should use variables instead of hardcoding them. Variables are stored in the `.processes/variables.json` file.
+
+**Variable naming rules:**
+- Variable names can only contain lowercase letters `[a-z]`, numbers `[0-9]`, and hyphens `-`
+- Variable NAME and DESCRIPTION must be at least 3 characters long
+- Examples: `paypal-url`, `api-token-123`, `database-host`
+
+**Steps for using variables:**
+
+1. **Check if variable exists**: First, verify if the required variable already exists in `.processes/variables.json`
+
+2. **Create new variable if needed**: If the variable doesn't exist, create it using:
+   ```bash
+   API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh create-variable <PROJECT_ID> <ROOT_FOLDER_ID> NAME DESCRIPTION VALUE
+   ```
+
+3. **Use variable in logic**: Reference the variable in your `set_param` logic using the format:
+   ```json
+   "url": "{{env_var[@example-url]}}"
+   ```
+
+**Example: Adding PayPal URL variable**
+
+1. **Check variable in `.processes/variables.json`**: Verify that `paypal-url` doesn't exist
+2. **Create the variable**:
+   ```bash
+   API_URL=https://admin.corezoid.com API_TOKEN=123 WORKSPACE_ID=123 ./convctl.sh create-variable 123 123 paypal-url "Paypal URL" "https://www.paypal.com"
+   ```
+3. **Use the variable in set_param logic**:
+   ```json
+   {
+     "type": "set_param",
+     "extra": {
+       "url": "{{env_var[@paypal-url]}}"
+     },
+     "extra_type": {
+       "url": "string"
+     },
+     "err_node_id": "68c7d861e552e8d570a1096e"
+   }
+   ```
 
 ```json
 {
