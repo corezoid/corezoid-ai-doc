@@ -41,7 +41,7 @@ The template `templates/api-connector.json` contains a complete process with all
 
 ### 3.1.1 Using Variables for API Parameters
 
-If you need to use API parameters like `url`, `login`, `secret`, etc., you should use variables instead of hardcoding them. Variables are stored in the `.processes/variables.json` file.
+All constants such as `url`, `login`, `secret`, etc. should be stored in variables instead of hardcoding them. Variables are stored in the `.processes/variables.json` file.
 
 **Variable naming rules:**
 - Variable names can only contain lowercase letters `[a-z]`, numbers `[0-9]`, and hyphens `-`
@@ -57,40 +57,40 @@ If you need to use API parameters like `url`, `login`, `secret`, etc., you shoul
    API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh create-variable <PROJECT_ID> <ROOT_FOLDER_ID> NAME DESCRIPTION VALUE
    ```
 
-3. **Use variable in logic**: Reference the variable in your `set_param` logic  (Configuration) using the format:
-   ```json
-        {
-          "id": "68c7d861e552e8d570a1096d",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "set_param",
-                "extra": {
-                  "url": "{{env_var[@example-url]}}",
-                  "foo": "{{env_var[@foo]}"
-                },
-                "extra_type": {
-                  "url": "string",
-                  "foo": "string"
-                },
-                "err_node_id": "68c7d861e552e8d570a1096e"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814e552e8d570a0eec5"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Configuration",
-          "description": "",
-          "x": 964,
-          "y": 980,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        }
-   ```
+   3. **Use variable in logic**: Reference the variable in your `set_param` logic  (Configuration) using the format:
+      ```json
+           {
+             "id": "68c7d861e552e8d570a1096d",
+             "obj_type": 0,
+             "condition": {
+               "logics": [
+                 {
+                   "type": "set_param",
+                   "extra": {
+                     "url": "{{env_var[@example-url]}}",
+                     "foo": "{{env_var[@foo]}"
+                   },
+                   "extra_type": {
+                     "url": "string",
+                     "foo": "string"
+                   },
+                   "err_node_id": "68c7d861e552e8d570a1096e"
+                 },
+                 {
+                   "type": "go",
+                   "to_node_id": "68c7d814e552e8d570a0eec5"
+                 }
+               ],
+               "semaphors": []
+             },
+             "title": "Configuration",
+             "description": "",
+             "x": 964,
+             "y": 980,
+             "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+             "options": null
+           }
+      ```
 
 **Example: Adding PayPal URL variable**
 
