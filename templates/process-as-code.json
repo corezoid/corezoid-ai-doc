@@ -1,0 +1,317 @@
+ {
+    "obj_type": 1,
+    "obj_id": 1729670,
+    "parent_id": 638135,
+    "title": "Tmplate GitCall",
+    "description": "",
+    "status": "active",
+    "params": [
+      {
+        "name": "customer",
+        "type": "string",
+        "descr": "customer",
+        "flags": [
+          "auto-clear",
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "priceId",
+        "type": "string",
+        "descr": "priceId",
+        "flags": [
+          "auto-clear",
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "successUrl",
+        "type": "string",
+        "descr": "successUrl",
+        "flags": [
+          "auto-clear",
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "descr": "mode",
+        "flags": [
+          "auto-clear",
+          "input"
+        ],
+        "regex": "",
+        "regex_error_text": ""
+      }
+    ],
+    "ref_mask": true,
+    "conv_type": "process",
+    "scheme": {
+      "nodes": [
+        {
+          "id": "68cc6229e552e8d570def877",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "git_call",
+                "version": 2,
+                "lang": "golang",
+                "code": "package main\n\nimport (\n\t\"context\"\n\t\"encoding/json\"\n\t\"io\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"strings\"\n\t\"time\"\n\n\t\"github.com/corezoid/gitcall-go-runner/gitcall\"\n)\n\nfunc usercode(ctx context.Context, data map[string]interface{}) error {\n\t// Формируем тело запроса\n\tform := url.Values{}\n\tform.Add(\"success_url\", data[\"successUrl\"].(string))\n\tform.Add(\"mode\", data[\"mode\"].(string))\n\tform.Add(\"line_items[0][price]\", data[\"priceId\"].(string))\n\tform.Add(\"line_items[0][quantity]\", \"1\")\n\tform.Add(\"customer\", data[\"customer\"].(string))\n\n\t// Создаем POST запрос\n\treq, err := http.NewRequest(\"POST\", \"https://api.stripe.com/v1/checkout/sessions\", strings.NewReader(form.Encode()))\n\tif err != nil {\n\t\treturn err\n\t}\n\n\t// Добавляем заголовки\n\treq.Header.Add(\"Authorization\", \"Bearer sk_test_51NfpOnIvuXypwENfe\")\n\treq.Header.Add(\"Content-Type\", \"application/x-www-form-urlencoded\")\n\n\tclient := &http.Client{}\n\n\t// Засекаем время\n\tstart := time.Now()\n\tres, err := client.Do(req)\n\tduration := time.Since(start).Milliseconds()\n\tif err != nil {\n\t\treturn err\n\t}\n\tdefer res.Body.Close()\n\n\tbody, _ := io.ReadAll(res.Body)\n\n\tvar response map[string]interface{}\n\tjson.Unmarshal(body, &response)\n\n\t// Сохраняем ответ и время выполнения\n\tdata[\"res\"] = map[string]interface{}{\n\t\t\"code\":        res.StatusCode,\n\t\t\"responseBody\":        response,\n\t\t\"duration_ms\": duration,\n\t}\n\treturn nil\n}\n\nfunc main() {\n\tgitcall.Handle(gitcall.UsercodeFunc(usercode))\n}\n",
+                "commit": "",
+                "script": "",
+                "repo": "",
+                "path": "",
+                "src": "package main\n\nimport (\n\t\"context\"\n\t\"encoding/json\"\n\t\"io\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"strings\"\n\t\"time\"\n\n\t\"github.com/corezoid/gitcall-go-runner/gitcall\"\n)\n\nfunc usercode(ctx context.Context, data map[string]interface{}) error {\n\t// Формируем тело запроса\n\tform := url.Values{}\n\tform.Add(\"success_url\", data[\"successUrl\"].(string))\n\tform.Add(\"mode\", data[\"mode\"].(string))\n\tform.Add(\"line_items[0][price]\", data[\"priceId\"].(string))\n\tform.Add(\"line_items[0][quantity]\", \"1\")\n\tform.Add(\"customer\", data[\"customer\"].(string))\n\n\t// Создаем POST запрос\n\treq, err := http.NewRequest(\"POST\", \"https://api.stripe.com/v1/checkout/sessions\", strings.NewReader(form.Encode()))\n\tif err != nil {\n\t\treturn err\n\t}\n\n\t// Добавляем заголовки\n\treq.Header.Add(\"Authorization\", \"Bearer sk_test_51NfpOnIvuXypwENfe\")\n\treq.Header.Add(\"Content-Type\", \"application/x-www-form-urlencoded\")\n\n\tclient := &http.Client{}\n\n\t// Засекаем время\n\tstart := time.Now()\n\tres, err := client.Do(req)\n\tduration := time.Since(start).Milliseconds()\n\tif err != nil {\n\t\treturn err\n\t}\n\tdefer res.Body.Close()\n\n\tbody, _ := io.ReadAll(res.Body)\n\n\tvar response map[string]interface{}\n\tjson.Unmarshal(body, &response)\n\n\t// Сохраняем ответ и время выполнения\n\tdata[\"res\"] = map[string]interface{}{\n\t\t\"code\":        res.StatusCode,\n\t\t\"responseBody\":        response,\n\t\t\"duration_ms\": duration,\n\t}\n\treturn nil\n}\n\nfunc main() {\n\tgitcall.Handle(gitcall.UsercodeFunc(usercode))\n}\n",
+                "err_node_id": "68caa95be552e8d570665252"
+              },
+              {
+                "type": "go",
+                "to_node_id": "68caa96cb677ac95d16666d5"
+              }
+            ],
+            "semaphors": [
+              {
+                "type": "time",
+                "value": 600,
+                "dimension": "min",
+                "to_node_id": "68caa99fe552e8d570666b61"
+              }
+            ]
+          },
+          "title": "Golang code",
+          "description": "",
+          "x": 884,
+          "y": 256,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68caa99fe552e8d570666b61",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_rpc_reply",
+                "mode": "key_value",
+                "res_data": {
+                  "error": "timeoute"
+                },
+                "res_data_type": {
+                  "error": "string"
+                },
+                "throw_exception": true
+              },
+              {
+                "type": "go",
+                "to_node_id": "68caa99fe552e8d570666b63"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "",
+          "description": "",
+          "x": 412,
+          "y": 296,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68caa96cb677ac95d16666d5",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_rpc_reply",
+                "mode": "key_value",
+                "res_data": {
+                  "response": "{{responseBody}}"
+                },
+                "res_data_type": {
+                  "response": "string"
+                },
+                "throw_exception": false
+              },
+              {
+                "type": "go",
+                "to_node_id": "68caa950b677ac95d1664bac"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Reply",
+          "description": "",
+          "x": 884,
+          "y": 568,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68caa985b677ac95d1666b0d",
+          "obj_type": 0,
+          "condition": {
+            "logics": [
+              {
+                "type": "api_rpc_reply",
+                "mode": "key_value",
+                "res_data": {
+                  "error": "{{description}}"
+                },
+                "res_data_type": {
+                  "error": "string"
+                },
+                "throw_exception": true
+              },
+              {
+                "type": "go",
+                "to_node_id": "68caa95be552e8d57066524e"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Error Reply",
+          "description": "",
+          "x": 1472,
+          "y": 404,
+          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68caa99fe552e8d570666b63",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Error Git Call",
+          "description": "",
+          "x": 512,
+          "y": 604,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+          "options": null
+        },
+        {
+          "id": "68caa95be552e8d57066524e",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Error Git Call",
+          "description": "",
+          "x": 1568,
+          "y": 660,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+          "options": null
+        },
+        {
+          "id": "68caa950b677ac95d1664bac",
+          "obj_type": 2,
+          "condition": {
+            "logics": [],
+            "semaphors": []
+          },
+          "title": "Final",
+          "description": "",
+          "x": 980,
+          "y": 908,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+          "options": "{\"save_task\":true}"
+        },
+        {
+          "id": "68caa95be552e8d570665252",
+          "obj_type": 3,
+          "condition": {
+            "logics": [
+              {
+                "type": "go_if_const",
+                "to_node_id": "68caa95be552e8d57066524d",
+                "conditions": [
+                  {
+                    "fun": "eq",
+                    "const": "hardware",
+                    "param": "__conveyor_git_call_return_type_error__",
+                    "cast": "string"
+                  }
+                ]
+              },
+              {
+                "type": "go_if_const",
+                "to_node_id": "68caa985b677ac95d1666b0d",
+                "conditions": [
+                  {
+                    "fun": "eq",
+                    "const": "software",
+                    "param": "__conveyor_git_call_return_type_error__",
+                    "cast": "string"
+                  }
+                ]
+              },
+              {
+                "type": "go",
+                "to_node_id": "68caa985b677ac95d1666b0d"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "",
+          "description": "",
+          "x": 1208,
+          "y": 412,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68caa95be552e8d57066524d",
+          "obj_type": 0,
+          "condition": {
+            "logics": [],
+            "semaphors": [
+              {
+                "type": "time",
+                "value": 30,
+                "dimension": "sec",
+                "to_node_id": "68cc6229e552e8d570def877"
+              }
+            ]
+          },
+          "title": "",
+          "description": "",
+          "x": 1192,
+          "y": 216,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+          "options": null
+        },
+        {
+          "id": "68caa950b677ac95d1664bab",
+          "obj_type": 1,
+          "condition": {
+            "logics": [
+              {
+                "type": "go",
+                "to_node_id": "68cc6229e552e8d570def877"
+              }
+            ],
+            "semaphors": []
+          },
+          "title": "Start",
+          "description": "",
+          "x": 1000,
+          "y": 100,
+          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+          "options": null
+        }
+      ],
+      "web_settings": [
+        [],
+        []
+      ]
+    }
+  }
