@@ -1,650 +1,648 @@
-[
-  {
-    "obj_type": 1,
-    "obj_id": 1728607,
-    "parent_id": 637794,
-    "title": "Template - Connector (v3)",
-    "description": "",
-    "status": "active",
-    "params": [
+{
+  "obj_type": 1,
+  "obj_id": 1728607,
+  "parent_id": 637794,
+  "title": "Template - Connector (v3)",
+  "description": "",
+  "status": "active",
+  "params": [
+    {
+      "name": "field1",
+      "type": "string",
+      "descr": "field for example, must be changed based on logic",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "regex": "",
+      "regex_error_text": ""
+    }
+  ],
+  "ref_mask": true,
+  "conv_type": "process",
+  "scheme": {
+    "nodes": [
       {
-        "name": "field1",
-        "type": "string",
-        "descr": "field for example, must be changed based on logic",
-        "flags": [
-          "required",
-          "input"
-        ],
-        "regex": "",
-        "regex_error_text": ""
+        "id": "68c7d814e552e8d570a0eec5",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_code",
+              "lang": "js",
+              "src": "\n\n// optionally, prepare the request for api call\ndata.requestBody = {}; // must be initialized for POST/PUT methods\ndata.pathAndQuery = \"\"; // must be initialized",
+              "err_node_id": "68c7d814e552e8d570a0eebd"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f233"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Configuration",
+        "description": "(option)",
+        "x": 964,
+        "y": 1172,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d861e552e8d570a1096e",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1232,
+        "y": 1072,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d861e552e8d570a1096d",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "set_param",
+              "extra": {
+                "url": "{{env_var[@example-url]}}",
+                "foo": "{{env_var[@foo]}"
+              },
+              "extra_type": {
+                "url": "string",
+                "foo": "string"
+              },
+              "err_node_id": "68c7d861e552e8d570a1096e"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814e552e8d570a0eec5"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Configuration",
+        "description": "",
+        "x": 964,
+        "y": 980,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eec4",
+        "obj_type": 1,
+        "condition": {
+          "logics": [
+            {
+              "type": "go",
+              "to_node_id": "68c7d861e552e8d570a1096d"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Start",
+        "description": "",
+        "x": 1064,
+        "y": 868,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f233",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_sum",
+              "extra": [
+                {
+                  "id": "1756993218036",
+                  "name": "api_call",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f234"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "API Call",
+        "description": "",
+        "x": 964,
+        "y": 1400,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f232",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "description": "{{__conveyor_set_param_return_description__}}"
+              },
+              "res_data_type": {
+                "description": "string"
+              },
+              "throw_exception": true,
+              "exception_reason": "error_getting_configurations"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814e552e8d570a0eec0"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply Error",
+        "description": "",
+        "x": 1652,
+        "y": 1344,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f234",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api",
+              "is_migrate": true,
+              "rfc_format": true,
+              "format": "",
+              "content_type": "application/json",
+              "method": "GET",
+              "url": "{{URL}}{{PATH_AND_QUERY}}",
+              "extra": {},
+              "extra_type": {},
+              "extra_headers": {
+                "content-type": ""
+              },
+              "cert_pem": "",
+              "max_threads": 5,
+              "send_sys": false,
+              "debug_info": true,
+              "err_node_id": "68c7d814b677ac95d1a0f22c",
+              "customize_response": true,
+              "response": {
+                "responseHeaders": "{{header}}",
+                "responseBody": "{{body}}"
+              },
+              "response_type": {
+                "responseHeaders": "object",
+                "responseBody": "object"
+              },
+              "version": 2
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814e552e8d570a0eec1"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "API Call",
+        "description": "",
+        "x": 964,
+        "y": 1640,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f231",
+        "obj_type": 0,
+        "condition": {
+          "logics": [],
+          "semaphors": [
+            {
+              "type": "time",
+              "value": 30,
+              "dimension": "sec",
+              "to_node_id": "68c7d814b677ac95d1a0f234"
+            }
+          ]
+        },
+        "title": "",
+        "description": "",
+        "x": 1360,
+        "y": 1488,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f22f",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_sum",
+              "extra": [
+                {
+                  "id": "1756991557616",
+                  "name": "http_exec_time",
+                  "value": "{{__conveyor_api_debug__.http_exec_time}}"
+                },
+                {
+                  "id": "1756991596340",
+                  "name": "http_req_body_size",
+                  "value": "{{__conveyor_api_debug__.http_req_body_size}}"
+                },
+                {
+                  "id": "1756991630245",
+                  "name": "http_res_body_size",
+                  "value": "{{__conveyor_api_debug__.http_res_body_size}}"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f22b"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "HTTP Global Metrics",
+        "description": "",
+        "x": 1644,
+        "y": 2172,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eebe",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_sum",
+              "extra": [
+                {
+                  "id": "1756986896871",
+                  "name": "http_error",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f22f"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "API Call error",
+        "description": "",
+        "x": 1644,
+        "y": 2028,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f230",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_sum",
+              "extra": [
+                {
+                  "id": "1756993545290",
+                  "name": "http_successful",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f22f"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "API Call successful",
+        "description": "",
+        "x": 964,
+        "y": 2172,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eebd",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "68c7d814e552e8d570a0eebc",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "hardware",
+                  "param": "__conveyor_code_return_type_error__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68c7d814b677ac95d1a0f232",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "software",
+                  "param": "__conveyor_code_return_type_error__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f232"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1352,
+        "y": 1344,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eec1",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "response": "{{responseBody}}"
+              },
+              "res_data_type": {
+                "response": "object"
+              },
+              "throw_exception": false
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f230"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply",
+        "description": "",
+        "x": 964,
+        "y": 1908,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f22d",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_sum",
+              "extra": [
+                {
+                  "id": "1756991082448",
+                  "name": "http_retries",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f231"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Retries",
+        "description": "",
+        "x": 1284,
+        "y": 1640,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eebb",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1916,
+        "y": 2472,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eeba",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "description": "{{message}}"
+              },
+              "res_data_type": {
+                "description": "string"
+              },
+              "throw_exception": true,
+              "exception_reason": "api_call_error"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814e552e8d570a0eebe"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply Error",
+        "description": "",
+        "x": 1644,
+        "y": 1836,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f22c",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "68c7d814b677ac95d1a0f22d",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "hardware",
+                  "param": "__conveyor_api_return_type_error__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68c7d814e552e8d570a0eeba",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "software",
+                  "param": "__conveyor_api_return_type_error__",
+                  "cast": "string"
+                },
+                {
+                  "fun": "eq",
+                  "const": "api_bad_answer",
+                  "param": "__conveyor_api_return_type_tag__",
+                  "cast": "string"
+                },
+                {
+                  "fun": "eq",
+                  "const": "no_scheme",
+                  "param": "__conveyor_api_return_description__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68c7d814b677ac95d1a0f22d",
+              "conditions": [
+                {
+                  "fun": "eq",
+                  "const": "software",
+                  "param": "__conveyor_api_return_type_error__",
+                  "cast": "string"
+                },
+                {
+                  "fun": "eq",
+                  "const": "api_bad_answer",
+                  "param": "__conveyor_api_return_type_tag__",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814e552e8d570a0eeba"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1360,
+        "y": 1836,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eec0",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "error getting configurations",
+        "description": "",
+        "x": 1984,
+        "y": 1372,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f22e",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Final",
+        "description": "",
+        "x": 1744,
+        "y": 2588,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814e552e8d570a0eebc",
+        "obj_type": 0,
+        "condition": {
+          "logics": [],
+          "semaphors": [
+            {
+              "type": "time",
+              "value": 30,
+              "dimension": "sec",
+              "to_node_id": "68c7d814e552e8d570a0eec5"
+            }
+          ]
+        },
+        "title": "",
+        "description": "",
+        "x": 1352,
+        "y": 1172,
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68c7d814b677ac95d1a0f22b",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_copy",
+              "conv_id": "{{PROCESS_METRIC_ID}}",
+              "ref": "{{root.task_id}}",
+              "mode": "create",
+              "group": "",
+              "data": {
+                "__conveyor_api_debug__": "{{__conveyor_api_debug__}}"
+              },
+              "data_type": {
+                "__conveyor_api_debug__": "object"
+              },
+              "err_node_id": "68c7d814e552e8d570a0eebb"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68c7d814b677ac95d1a0f22e"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Copy into the metrics analysis process",
+        "description": "",
+        "x": 1644,
+        "y": 2364,
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
       }
     ],
-    "ref_mask": true,
-    "conv_type": "process",
-    "scheme": {
-      "nodes": [
-        {
-          "id": "68c7d814e552e8d570a0eec5",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_code",
-                "lang": "js",
-                "src": "\n\n// optionally, prepare the request for api call\ndata.requestBody = {}; // must be initialized for POST/PUT methods\ndata.pathAndQuery = \"\"; // must be initialized",
-                "err_node_id": "68c7d814e552e8d570a0eebd"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f233"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Configuration",
-          "description": "(option)",
-          "x": 964,
-          "y": 1172,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d861e552e8d570a1096e",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1232,
-          "y": 1072,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d861e552e8d570a1096d",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "set_param",
-                "extra": {
-                  "url": "{{env_var[@example-url]}}",
-                  "foo": "{{env_var[@foo]}"
-                },
-                "extra_type": {
-                  "url": "string",
-                  "foo": "string"
-                },
-                "err_node_id": "68c7d861e552e8d570a1096e"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814e552e8d570a0eec5"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Configuration",
-          "description": "",
-          "x": 964,
-          "y": 980,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eec4",
-          "obj_type": 1,
-          "condition": {
-            "logics": [
-              {
-                "type": "go",
-                "to_node_id": "68c7d861e552e8d570a1096d"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Start",
-          "description": "",
-          "x": 1064,
-          "y": 868,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f233",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_sum",
-                "extra": [
-                  {
-                    "id": "1756993218036",
-                    "name": "api_call",
-                    "value": "1"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f234"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "API Call",
-          "description": "",
-          "x": 964,
-          "y": 1400,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f232",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "description": "{{__conveyor_set_param_return_description__}}"
-                },
-                "res_data_type": {
-                  "description": "string"
-                },
-                "throw_exception": true,
-                "exception_reason": "error_getting_configurations"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814e552e8d570a0eec0"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply Error",
-          "description": "",
-          "x": 1652,
-          "y": 1344,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f234",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api",
-                "is_migrate": true,
-                "rfc_format": true,
-                "format": "",
-                "content_type": "application/json",
-                "method": "GET",
-                "url": "{{URL}}{{PATH_AND_QUERY}}",
-                "extra": {},
-                "extra_type": {},
-                "extra_headers": {
-                  "content-type": ""
-                },
-                "cert_pem": "",
-                "max_threads": 5,
-                "send_sys": false,
-                "debug_info": true,
-                "err_node_id": "68c7d814b677ac95d1a0f22c",
-                "customize_response": true,
-                "response": {
-                  "responseHeaders": "{{header}}",
-                  "responseBody": "{{body}}"
-                },
-                "response_type": {
-                  "responseHeaders": "object",
-                  "responseBody": "object"
-                },
-                "version": 2
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814e552e8d570a0eec1"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "API Call",
-          "description": "",
-          "x": 964,
-          "y": 1640,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f231",
-          "obj_type": 0,
-          "condition": {
-            "logics": [],
-            "semaphors": [
-              {
-                "type": "time",
-                "value": 30,
-                "dimension": "sec",
-                "to_node_id": "68c7d814b677ac95d1a0f234"
-              }
-            ]
-          },
-          "title": "",
-          "description": "",
-          "x": 1360,
-          "y": 1488,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f22f",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_sum",
-                "extra": [
-                  {
-                    "id": "1756991557616",
-                    "name": "http_exec_time",
-                    "value": "{{__conveyor_api_debug__.http_exec_time}}"
-                  },
-                  {
-                    "id": "1756991596340",
-                    "name": "http_req_body_size",
-                    "value": "{{__conveyor_api_debug__.http_req_body_size}}"
-                  },
-                  {
-                    "id": "1756991630245",
-                    "name": "http_res_body_size",
-                    "value": "{{__conveyor_api_debug__.http_res_body_size}}"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f22b"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "HTTP Global Metrics",
-          "description": "",
-          "x": 1644,
-          "y": 2172,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eebe",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_sum",
-                "extra": [
-                  {
-                    "id": "1756986896871",
-                    "name": "http_error",
-                    "value": "1"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f22f"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "API Call error",
-          "description": "",
-          "x": 1644,
-          "y": 2028,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f230",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_sum",
-                "extra": [
-                  {
-                    "id": "1756993545290",
-                    "name": "http_successful",
-                    "value": "1"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f22f"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "API Call successful",
-          "description": "",
-          "x": 964,
-          "y": 2172,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eebd",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "go_if_const",
-                "to_node_id": "68c7d814e552e8d570a0eebc",
-                "conditions": [
-                  {
-                    "fun": "eq",
-                    "const": "hardware",
-                    "param": "__conveyor_code_return_type_error__",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68c7d814b677ac95d1a0f232",
-                "conditions": [
-                  {
-                    "fun": "eq",
-                    "const": "software",
-                    "param": "__conveyor_code_return_type_error__",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f232"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1352,
-          "y": 1344,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eec1",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "response": "{{responseBody}}"
-                },
-                "res_data_type": {
-                  "response": "object"
-                },
-                "throw_exception": false
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f230"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply",
-          "description": "",
-          "x": 964,
-          "y": 1908,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f22d",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_sum",
-                "extra": [
-                  {
-                    "id": "1756991082448",
-                    "name": "http_retries",
-                    "value": "1"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f231"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Retries",
-          "description": "",
-          "x": 1284,
-          "y": 1640,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eebb",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1916,
-          "y": 2472,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eeba",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "description": "{{message}}"
-                },
-                "res_data_type": {
-                  "description": "string"
-                },
-                "throw_exception": true,
-                "exception_reason": "api_call_error"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814e552e8d570a0eebe"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply Error",
-          "description": "",
-          "x": 1644,
-          "y": 1836,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f22c",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "go_if_const",
-                "to_node_id": "68c7d814b677ac95d1a0f22d",
-                "conditions": [
-                  {
-                    "fun": "eq",
-                    "const": "hardware",
-                    "param": "__conveyor_api_return_type_error__",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68c7d814e552e8d570a0eeba",
-                "conditions": [
-                  {
-                    "fun": "eq",
-                    "const": "software",
-                    "param": "__conveyor_api_return_type_error__",
-                    "cast": "string"
-                  },
-                  {
-                    "fun": "eq",
-                    "const": "api_bad_answer",
-                    "param": "__conveyor_api_return_type_tag__",
-                    "cast": "string"
-                  },
-                  {
-                    "fun": "eq",
-                    "const": "no_scheme",
-                    "param": "__conveyor_api_return_description__",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68c7d814b677ac95d1a0f22d",
-                "conditions": [
-                  {
-                    "fun": "eq",
-                    "const": "software",
-                    "param": "__conveyor_api_return_type_error__",
-                    "cast": "string"
-                  },
-                  {
-                    "fun": "eq",
-                    "const": "api_bad_answer",
-                    "param": "__conveyor_api_return_type_tag__",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814e552e8d570a0eeba"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1360,
-          "y": 1836,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eec0",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "error getting configurations",
-          "description": "",
-          "x": 1984,
-          "y": 1372,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f22e",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Final",
-          "description": "",
-          "x": 1744,
-          "y": 2588,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814e552e8d570a0eebc",
-          "obj_type": 0,
-          "condition": {
-            "logics": [],
-            "semaphors": [
-              {
-                "type": "time",
-                "value": 30,
-                "dimension": "sec",
-                "to_node_id": "68c7d814e552e8d570a0eec5"
-              }
-            ]
-          },
-          "title": "",
-          "description": "",
-          "x": 1352,
-          "y": 1172,
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68c7d814b677ac95d1a0f22b",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_copy",
-                "conv_id": "{{PROCESS_METRIC_ID}}",
-                "ref": "{{root.task_id}}",
-                "mode": "create",
-                "group": "",
-                "data": {
-                  "__conveyor_api_debug__": "{{__conveyor_api_debug__}}"
-                },
-                "data_type": {
-                  "__conveyor_api_debug__": "object"
-                },
-                "err_node_id": "68c7d814e552e8d570a0eebb"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68c7d814b677ac95d1a0f22e"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Copy into the metrics analysis process",
-          "description": "",
-          "x": 1644,
-          "y": 2364,
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        }
-      ],
-      "web_settings": [
-        [],
-        []
-      ]
-    }
+    "web_settings": [
+      [],
+      []
+    ]
   }
-]
+}

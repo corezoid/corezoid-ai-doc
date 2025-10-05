@@ -1,840 +1,839 @@
-
-  {
-    "obj_type": 1,
-    "obj_id": 1731219,
-    "parent_id": 638135,
-    "title": "Example: Check customer and make checkout",
-    "description": "",
-    "status": "active",
-    "params": [
+{
+  "obj_type": 1,
+  "obj_id": 1731219,
+  "parent_id": 638135,
+  "title": "Example: Check customer and make checkout",
+  "description": "",
+  "status": "active",
+  "params": [
+    {
+      "name": "customer",
+      "type": "string",
+      "descr": "Stripe customer ID",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "regex": "",
+      "regex_error_text": ""
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "descr": "Checkout mode (payment, setup, subscription)",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "regex": "",
+      "regex_error_text": ""
+    },
+    {
+      "name": "priceId",
+      "type": "string",
+      "descr": "Stripe price ID for the product",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "regex": "",
+      "regex_error_text": ""
+    },
+    {
+      "name": "secretKey",
+      "type": "string",
+      "descr": "Stripe secret key for authentication",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "regex": "",
+      "regex_error_text": ""
+    },
+    {
+      "name": "successUrl",
+      "type": "string",
+      "descr": "URL to redirect after successful payment",
+      "flags": [
+        "required",
+        "input"
+      ],
+      "regex": "",
+      "regex_error_text": ""
+    }
+  ],
+  "ref_mask": true,
+  "conv_type": "process",
+  "scheme": {
+    "nodes": [
       {
-        "name": "customer",
-        "type": "string",
-        "descr": "Stripe customer ID",
-        "flags": [
-          "required",
-          "input"
-        ],
-        "regex": "",
-        "regex_error_text": ""
+        "id": "68cd3f94e552e8d57009fb0c",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_code",
+              "lang": "js",
+              "src": "// Build form-encoded request body for Stripe API\nvar params = [];\nparams.push(\"success_url=\" + encodeURIComponent(data.successUrl));\nparams.push(\"mode=\" + encodeURIComponent(data.mode));\nparams.push(\"line_items[0][price]=\" + encodeURIComponent(data.priceId));\nparams.push(\"line_items[0][quantity]=1\");\nparams.push(\"customer=\" + encodeURIComponent(data.customer));\ndata.pathAndQuery = \"/v1/checkout/sessions\"\ndata.requestBody = params.join(\"&\");\n",
+              "err_node_id": "68cd3f94b677ac95d109fb4a"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94b677ac95d109fb47"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Create params",
+        "description": "",
+        "x": 1984,
+        "y": 1080,
+        "uuid": "8d7dbb09-f642-45c4-926c-ddc08dc03902",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
       },
       {
-        "name": "mode",
-        "type": "string",
-        "descr": "Checkout mode (payment, setup, subscription)",
-        "flags": [
-          "required",
-          "input"
-        ],
-        "regex": "",
-        "regex_error_text": ""
+        "id": "68cd3f94b677ac95d109fb49",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "set_param",
+              "extra": {
+                "url": "https://api.stripe.com"
+              },
+              "extra_type": {
+                "url": "string"
+              },
+              "err_node_id": "68cd3f94b677ac95d109fb48"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd4683e552e8d5700ce6a0"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Configuration",
+        "description": "",
+        "x": 1356,
+        "y": -688,
+        "uuid": "7873e418-3a5f-4105-9b8b-40638e5b1879",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
       },
       {
-        "name": "priceId",
-        "type": "string",
-        "descr": "Stripe price ID for the product",
-        "flags": [
-          "required",
-          "input"
-        ],
-        "regex": "",
-        "regex_error_text": ""
+        "id": "68cd4683e552e8d5700ce6a0",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd541ee552e8d5701317dc",
+              "conditions": [
+                {
+                  "param": "priceId",
+                  "const": "price_1OZ9f9IvuXypwENBLpQz1Zqt",
+                  "fun": "eq",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd541ee552e8d5701317dc",
+              "conditions": [
+                {
+                  "param": "priceId",
+                  "const": "price_1OZ9f9IvuXypwENBLpQz1Zqt",
+                  "fun": "eq",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd46f5e552e8d5700d305c"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1392,
+        "y": -272,
+        "uuid": "24493822-3e59-42c5-bffd-dfd3806a9538",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
       },
       {
-        "name": "secretKey",
-        "type": "string",
-        "descr": "Stripe secret key for authentication",
-        "flags": [
-          "required",
-          "input"
-        ],
-        "regex": "",
-        "regex_error_text": ""
+        "id": "68cd3f94b677ac95d109fb47",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api",
+              "is_migrate": true,
+              "rfc_format": true,
+              "format": "raw",
+              "raw_body": "{{requestBody}}",
+              "content_type": "application/x-www-form-urlencoded",
+              "method": "POST",
+              "url": "{{url}}{{pathAndQuery}}",
+              "extra": {},
+              "extra_type": {},
+              "extra_headers": {
+                "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+                "Authorization": "Bearer {{secretKey}}"
+              },
+              "cert_pem": "",
+              "max_threads": 5,
+              "send_sys": false,
+              "debug_info": false,
+              "err_node_id": "68cd3f94e552e8d57009fb0b",
+              "customize_response": true,
+              "response": {
+                "responseBody": "{{body}}",
+                "responseHeaders": "{{header}}"
+              },
+              "response_type": {
+                "responseBody": "string",
+                "responseHeaders": "string"
+              },
+              "version": 2
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94e552e8d57009fb0a"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "API Stripe checkout",
+        "description": "",
+        "x": 1984,
+        "y": 1276,
+        "uuid": "c1ea2b9e-99db-4750-81e6-6dd920f8d889",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
       },
       {
-        "name": "successUrl",
-        "type": "string",
-        "descr": "URL to redirect after successful payment",
-        "flags": [
-          "required",
-          "input"
-        ],
-        "regex": "",
-        "regex_error_text": ""
+        "id": "68cd555bb677ac95d113cc92",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd5519e552e8d57013b2f4",
+              "conditions": [
+                {
+                  "param": "{{responseBody.id}}",
+                  "const": "{{customer}}",
+                  "fun": "not_eq",
+                  "cast": "string"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94e552e8d57009fb0c"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1980,
+        "y": 700,
+        "uuid": "27011b9d-3317-41fb-bb85-5e4e4fc7ab71",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d5701317d2",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api",
+              "is_migrate": true,
+              "rfc_format": true,
+              "format": "",
+              "content_type": "application/json",
+              "method": "GET",
+              "url": "{{url}}{{pathAndQuery}}",
+              "extra": {},
+              "extra_type": {},
+              "extra_headers": {
+                "content-type": "application/json; charset=utf-8",
+                "Authorization": "Bearer {{secretKey}}",
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              "cert_pem": "",
+              "max_threads": 5,
+              "send_sys": false,
+              "debug_info": true,
+              "err_node_id": "68cd541ee552e8d5701317a4",
+              "customize_response": true,
+              "response": {
+                "responseBody": "{{body}}",
+                "responseHeaders": "{{header}}"
+              },
+              "response_type": {
+                "responseBody": "object",
+                "responseHeaders": "object"
+              },
+              "version": 2
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd555bb677ac95d113cc92"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Stripe API Call",
+        "description": "Call Stripe API to verify customer",
+        "x": 1984,
+        "y": 312,
+        "uuid": "dfe70ae6-8ce0-41d2-9af0-3e3bfe583c8d",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d5701317a4",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd541ee552e8d5701317b0",
+              "conditions": [
+                {
+                  "cast": "string",
+                  "const": "hardware",
+                  "fun": "eq",
+                  "param": "__conveyor_api_return_type_error__"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd5519e552e8d57013b2f4",
+              "conditions": [
+                {
+                  "cast": "string",
+                  "const": "software",
+                  "fun": "eq",
+                  "param": "__conveyor_api_return_type_error__"
+                },
+                {
+                  "cast": "string",
+                  "const": "api_bad_answer",
+                  "fun": "eq",
+                  "param": "__conveyor_api_return_type_tag__"
+                },
+                {
+                  "cast": "string",
+                  "const": "no_scheme",
+                  "fun": "eq",
+                  "param": "__conveyor_api_return_description__"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd541ee552e8d5701317b0",
+              "conditions": [
+                {
+                  "cast": "string",
+                  "const": "software",
+                  "fun": "eq",
+                  "param": "__conveyor_api_return_type_error__"
+                },
+                {
+                  "cast": "string",
+                  "const": "api_bad_answer",
+                  "fun": "eq",
+                  "param": "__conveyor_api_return_type_tag__"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd5519e552e8d57013b2f4"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 2388,
+        "y": 540,
+        "uuid": "2d640a09-f641-43fa-ab93-d18c16746bf0",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd553eb677ac95d113bd6f",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Final",
+        "description": "",
+        "x": 3224,
+        "y": 548,
+        "uuid": "075d33cb-d676-4099-ab93-4dfae333d2f7",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68cd5519e552e8d57013b2f4",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "error": "customer_not_found"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": false
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd553eb677ac95d113bd6f"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 2664,
+        "y": 536,
+        "uuid": "6ba20035-b7c2-4b1f-aaaf-5b6253073748",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd46f5e552e8d5700d305c",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "error": "price_not_found"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": false
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd4707b677ac95d10d3420"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 1012,
+        "y": -224,
+        "uuid": "ab1f3e40-8e95-4caa-b2ae-628541314921",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94e552e8d57009fb0f",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Error API Call",
+        "description": "",
+        "x": 2576,
+        "y": 1364,
+        "uuid": "405712f4-fcc7-42f1-80ac-62814017348e",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94b677ac95d109fb4b",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Error Code Call",
+        "description": "",
+        "x": 2564,
+        "y": 1168,
+        "uuid": "b2c33a74-2ece-451c-8186-8297151a1a65",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94e552e8d57009fb0d",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Final",
+        "description": "",
+        "x": 2084,
+        "y": 1832,
+        "uuid": "b87c7f0e-7039-4f13-b800-d01bca866416",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
+        "options": "{\"save_task\":true}"
+      },
+      {
+        "id": "68cd3f94e552e8d57009fb0b",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "error": "{{nessage}}"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94e552e8d57009fb0f"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply Error",
+        "description": "",
+        "x": 2264,
+        "y": 1336,
+        "uuid": "da80f91c-0242-404a-bfba-ff47eb5f3b67",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94b677ac95d109fb4a",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "error": "{{__conveyor_code_return_description__}}"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94b677ac95d109fb4b"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply Error",
+        "description": "",
+        "x": 2256,
+        "y": 1140,
+        "uuid": "c40a5ab8-fc4f-47dd-bd28-08735a0c4d96",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94e552e8d57009fb0a",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "response": "{{responseBody}}"
+              },
+              "res_data_type": {
+                "response": "object"
+              },
+              "throw_exception": false
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94e552e8d57009fb0d"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply",
+        "description": "",
+        "x": 1984,
+        "y": 1536,
+        "uuid": "1118fcc7-27ba-40d1-a853-7518ddd10282",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d5701317dc",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_code",
+              "lang": "js",
+              "src": "\n// Prepare Stripe API request for customer verification\ndata.url = \"https://api.stripe.com\";\ndata.pathAndQuery = \"/v1/customers/\" + data.customer;\ndata.requestBody = {}; // Empty for GET request\n",
+              "err_node_id": "68cd541ee552e8d5701317ba"
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd541ee552e8d5701317d2"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Prepare Request",
+        "description": "Prepare Stripe customer lookup",
+        "x": 1984,
+        "y": -156,
+        "uuid": "c47f0ae4-5a33-4932-a531-51260718c719",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd547be552e8d5701357cd",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Final",
+        "description": "",
+        "x": 2852,
+        "y": 68,
+        "uuid": "f198d5e3-1595-45c7-96f3-08ed999b9b0f",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d5701317c2",
+        "obj_type": 0,
+        "condition": {
+          "logics": [],
+          "semaphors": [
+            {
+              "type": "time",
+              "value": 30,
+              "dimension": "sec",
+              "to_node_id": "68cd541ee552e8d5701317d2"
+            }
+          ]
+        },
+        "title": "",
+        "description": "",
+        "x": 2380,
+        "y": 160,
+        "uuid": "d683ca89-2635-4ddb-86f0-c7efc6c46399",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d5701317ba",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd541ee552e8d570131788",
+              "conditions": [
+                {
+                  "cast": "string",
+                  "const": "hardware",
+                  "fun": "eq",
+                  "param": "__conveyor_code_return_type_error__"
+                }
+              ]
+            },
+            {
+              "type": "go_if_const",
+              "to_node_id": "68cd547be552e8d5701357cd",
+              "conditions": [
+                {
+                  "cast": "string",
+                  "const": "software",
+                  "fun": "eq",
+                  "param": "__conveyor_code_return_type_error__"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd547be552e8d5701357cd"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "",
+        "description": "",
+        "x": 2372,
+        "y": 0,
+        "uuid": "67cdb59c-ec74-4203-a7e8-730fd44f5085",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d5701317b0",
+        "obj_type": 0,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_sum",
+              "extra": [
+                {
+                  "id": "1756991082448",
+                  "name": "http_retries",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd541ee552e8d5701317c2"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Retries",
+        "description": "",
+        "x": 2324,
+        "y": 316,
+        "uuid": "1ea97a17-d266-4de6-8a4b-f5e39e01bdf3",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd541ee552e8d570131788",
+        "obj_type": 0,
+        "condition": {
+          "logics": [],
+          "semaphors": [
+            {
+              "type": "time",
+              "value": 30,
+              "dimension": "sec",
+              "to_node_id": "68cd541ee552e8d5701317dc"
+            }
+          ]
+        },
+        "title": "",
+        "description": "",
+        "x": 2372,
+        "y": -224,
+        "uuid": "0f39668a-4286-44b5-a218-c7cde5909a71",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd4707b677ac95d10d3420",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Final",
+        "description": "",
+        "x": 684,
+        "y": -196,
+        "uuid": "41359124-e303-452b-86c6-8e2dac468547",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94b677ac95d109fb48",
+        "obj_type": 3,
+        "condition": {
+          "logics": [
+            {
+              "type": "api_rpc_reply",
+              "mode": "key_value",
+              "res_data": {
+                "error": "{{__conveyor_set_param_return_description__}}"
+              },
+              "res_data_type": {
+                "error": "string"
+              },
+              "throw_exception": true
+            },
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94b677ac95d109fb4c"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Reply Error",
+        "description": "",
+        "x": 1660,
+        "y": -676,
+        "uuid": "e14ecc5e-1cd5-4d55-a740-490576dd9bdd",
+        "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94b677ac95d109fb4c",
+        "obj_type": 2,
+        "condition": {
+          "logics": [],
+          "semaphors": []
+        },
+        "title": "Error Set Parametrs Call",
+        "description": "",
+        "x": 2056,
+        "y": -636,
+        "uuid": "e9974bbb-ef7e-4f77-ade4-976a808d5409",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
+        "options": null
+      },
+      {
+        "id": "68cd3f94e552e8d57009fb0e",
+        "obj_type": 1,
+        "condition": {
+          "logics": [
+            {
+              "type": "go",
+              "to_node_id": "68cd3f94b677ac95d109fb49"
+            }
+          ],
+          "semaphors": []
+        },
+        "title": "Start",
+        "description": "",
+        "x": 1456,
+        "y": -788,
+        "uuid": "83c17f5e-031d-440d-8fe7-40e15562262b",
+        "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
+        "options": null
       }
     ],
-    "ref_mask": true,
-    "conv_type": "process",
-    "scheme": {
-      "nodes": [
-        {
-          "id": "68cd3f94e552e8d57009fb0c",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_code",
-                "lang": "js",
-                "src": "// Build form-encoded request body for Stripe API\nvar params = [];\nparams.push(\"success_url=\" + encodeURIComponent(data.successUrl));\nparams.push(\"mode=\" + encodeURIComponent(data.mode));\nparams.push(\"line_items[0][price]=\" + encodeURIComponent(data.priceId));\nparams.push(\"line_items[0][quantity]=1\");\nparams.push(\"customer=\" + encodeURIComponent(data.customer));\ndata.pathAndQuery = \"/v1/checkout/sessions\"\ndata.requestBody = params.join(\"&\");\n",
-                "err_node_id": "68cd3f94b677ac95d109fb4a"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94b677ac95d109fb47"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Create params",
-          "description": "",
-          "x": 1984,
-          "y": 1080,
-          "uuid": "8d7dbb09-f642-45c4-926c-ddc08dc03902",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94b677ac95d109fb49",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "set_param",
-                "extra": {
-                  "url": "https://api.stripe.com"
-                },
-                "extra_type": {
-                  "url": "string"
-                },
-                "err_node_id": "68cd3f94b677ac95d109fb48"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd4683e552e8d5700ce6a0"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Configuration",
-          "description": "",
-          "x": 1356,
-          "y": -688,
-          "uuid": "7873e418-3a5f-4105-9b8b-40638e5b1879",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd4683e552e8d5700ce6a0",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd541ee552e8d5701317dc",
-                "conditions": [
-                  {
-                    "param": "priceId",
-                    "const": "price_1OZ9f9IvuXypwENBLpQz1Zqt",
-                    "fun": "eq",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd541ee552e8d5701317dc",
-                "conditions": [
-                  {
-                    "param": "priceId",
-                    "const": "price_1OZ9f9IvuXypwENBLpQz1Zqt",
-                    "fun": "eq",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd46f5e552e8d5700d305c"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1392,
-          "y": -272,
-          "uuid": "24493822-3e59-42c5-bffd-dfd3806a9538",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94b677ac95d109fb47",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api",
-                "is_migrate": true,
-                "rfc_format": true,
-                "format": "raw",
-                "raw_body": "{{requestBody}}",
-                "content_type": "application/x-www-form-urlencoded",
-                "method": "POST",
-                "url": "{{url}}{{pathAndQuery}}",
-                "extra": {},
-                "extra_type": {},
-                "extra_headers": {
-                  "content-type": "application/x-www-form-urlencoded; charset=utf-8",
-                  "Authorization": "Bearer {{secretKey}}"
-                },
-                "cert_pem": "",
-                "max_threads": 5,
-                "send_sys": false,
-                "debug_info": false,
-                "err_node_id": "68cd3f94e552e8d57009fb0b",
-                "customize_response": true,
-                "response": {
-                  "responseBody": "{{body}}",
-                  "responseHeaders": "{{header}}"
-                },
-                "response_type": {
-                  "responseBody": "string",
-                  "responseHeaders": "string"
-                },
-                "version": 2
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94e552e8d57009fb0a"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "API Stripe checkout",
-          "description": "",
-          "x": 1984,
-          "y": 1276,
-          "uuid": "c1ea2b9e-99db-4750-81e6-6dd920f8d889",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd555bb677ac95d113cc92",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd5519e552e8d57013b2f4",
-                "conditions": [
-                  {
-                    "param": "{{responseBody.id}}",
-                    "const": "{{customer}}",
-                    "fun": "not_eq",
-                    "cast": "string"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94e552e8d57009fb0c"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1980,
-          "y": 700,
-          "uuid": "27011b9d-3317-41fb-bb85-5e4e4fc7ab71",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d5701317d2",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api",
-                "is_migrate": true,
-                "rfc_format": true,
-                "format": "",
-                "content_type": "application/json",
-                "method": "GET",
-                "url": "{{url}}{{pathAndQuery}}",
-                "extra": {},
-                "extra_type": {},
-                "extra_headers": {
-                  "content-type": "application/json; charset=utf-8",
-                  "Authorization": "Bearer {{secretKey}}",
-                  "Content-Type": "application/x-www-form-urlencoded"
-                },
-                "cert_pem": "",
-                "max_threads": 5,
-                "send_sys": false,
-                "debug_info": true,
-                "err_node_id": "68cd541ee552e8d5701317a4",
-                "customize_response": true,
-                "response": {
-                  "responseBody": "{{body}}",
-                  "responseHeaders": "{{header}}"
-                },
-                "response_type": {
-                  "responseBody": "object",
-                  "responseHeaders": "object"
-                },
-                "version": 2
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd555bb677ac95d113cc92"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Stripe API Call",
-          "description": "Call Stripe API to verify customer",
-          "x": 1984,
-          "y": 312,
-          "uuid": "dfe70ae6-8ce0-41d2-9af0-3e3bfe583c8d",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d5701317a4",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd541ee552e8d5701317b0",
-                "conditions": [
-                  {
-                    "cast": "string",
-                    "const": "hardware",
-                    "fun": "eq",
-                    "param": "__conveyor_api_return_type_error__"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd5519e552e8d57013b2f4",
-                "conditions": [
-                  {
-                    "cast": "string",
-                    "const": "software",
-                    "fun": "eq",
-                    "param": "__conveyor_api_return_type_error__"
-                  },
-                  {
-                    "cast": "string",
-                    "const": "api_bad_answer",
-                    "fun": "eq",
-                    "param": "__conveyor_api_return_type_tag__"
-                  },
-                  {
-                    "cast": "string",
-                    "const": "no_scheme",
-                    "fun": "eq",
-                    "param": "__conveyor_api_return_description__"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd541ee552e8d5701317b0",
-                "conditions": [
-                  {
-                    "cast": "string",
-                    "const": "software",
-                    "fun": "eq",
-                    "param": "__conveyor_api_return_type_error__"
-                  },
-                  {
-                    "cast": "string",
-                    "const": "api_bad_answer",
-                    "fun": "eq",
-                    "param": "__conveyor_api_return_type_tag__"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd5519e552e8d57013b2f4"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 2388,
-          "y": 540,
-          "uuid": "2d640a09-f641-43fa-ab93-d18c16746bf0",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd553eb677ac95d113bd6f",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Final",
-          "description": "",
-          "x": 3224,
-          "y": 548,
-          "uuid": "075d33cb-d676-4099-ab93-4dfae333d2f7",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68cd5519e552e8d57013b2f4",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "error": "customer_not_found"
-                },
-                "res_data_type": {
-                  "error": "string"
-                },
-                "throw_exception": false
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd553eb677ac95d113bd6f"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 2664,
-          "y": 536,
-          "uuid": "6ba20035-b7c2-4b1f-aaaf-5b6253073748",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd46f5e552e8d5700d305c",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "error": "price_not_found"
-                },
-                "res_data_type": {
-                  "error": "string"
-                },
-                "throw_exception": false
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd4707b677ac95d10d3420"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 1012,
-          "y": -224,
-          "uuid": "ab1f3e40-8e95-4caa-b2ae-628541314921",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94e552e8d57009fb0f",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Error API Call",
-          "description": "",
-          "x": 2576,
-          "y": 1364,
-          "uuid": "405712f4-fcc7-42f1-80ac-62814017348e",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94b677ac95d109fb4b",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Error Code Call",
-          "description": "",
-          "x": 2564,
-          "y": 1168,
-          "uuid": "b2c33a74-2ece-451c-8186-8297151a1a65",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94e552e8d57009fb0d",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Final",
-          "description": "",
-          "x": 2084,
-          "y": 1832,
-          "uuid": "b87c7f0e-7039-4f13-b800-d01bca866416",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"success\"}",
-          "options": "{\"save_task\":true}"
-        },
-        {
-          "id": "68cd3f94e552e8d57009fb0b",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "error": "{{nessage}}"
-                },
-                "res_data_type": {
-                  "error": "string"
-                },
-                "throw_exception": true
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94e552e8d57009fb0f"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply Error",
-          "description": "",
-          "x": 2264,
-          "y": 1336,
-          "uuid": "da80f91c-0242-404a-bfba-ff47eb5f3b67",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94b677ac95d109fb4a",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "error": "{{__conveyor_code_return_description__}}"
-                },
-                "res_data_type": {
-                  "error": "string"
-                },
-                "throw_exception": true
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94b677ac95d109fb4b"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply Error",
-          "description": "",
-          "x": 2256,
-          "y": 1140,
-          "uuid": "c40a5ab8-fc4f-47dd-bd28-08735a0c4d96",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94e552e8d57009fb0a",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "response": "{{responseBody}}"
-                },
-                "res_data_type": {
-                  "response": "object"
-                },
-                "throw_exception": false
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94e552e8d57009fb0d"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply",
-          "description": "",
-          "x": 1984,
-          "y": 1536,
-          "uuid": "1118fcc7-27ba-40d1-a853-7518ddd10282",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d5701317dc",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_code",
-                "lang": "js",
-                "src": "\n// Prepare Stripe API request for customer verification\ndata.url = \"https://api.stripe.com\";\ndata.pathAndQuery = \"/v1/customers/\" + data.customer;\ndata.requestBody = {}; // Empty for GET request\n",
-                "err_node_id": "68cd541ee552e8d5701317ba"
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd541ee552e8d5701317d2"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Prepare Request",
-          "description": "Prepare Stripe customer lookup",
-          "x": 1984,
-          "y": -156,
-          "uuid": "c47f0ae4-5a33-4932-a531-51260718c719",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd547be552e8d5701357cd",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Final",
-          "description": "",
-          "x": 2852,
-          "y": 68,
-          "uuid": "f198d5e3-1595-45c7-96f3-08ed999b9b0f",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d5701317c2",
-          "obj_type": 0,
-          "condition": {
-            "logics": [],
-            "semaphors": [
-              {
-                "type": "time",
-                "value": 30,
-                "dimension": "sec",
-                "to_node_id": "68cd541ee552e8d5701317d2"
-              }
-            ]
-          },
-          "title": "",
-          "description": "",
-          "x": 2380,
-          "y": 160,
-          "uuid": "d683ca89-2635-4ddb-86f0-c7efc6c46399",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d5701317ba",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd541ee552e8d570131788",
-                "conditions": [
-                  {
-                    "cast": "string",
-                    "const": "hardware",
-                    "fun": "eq",
-                    "param": "__conveyor_code_return_type_error__"
-                  }
-                ]
-              },
-              {
-                "type": "go_if_const",
-                "to_node_id": "68cd547be552e8d5701357cd",
-                "conditions": [
-                  {
-                    "cast": "string",
-                    "const": "software",
-                    "fun": "eq",
-                    "param": "__conveyor_code_return_type_error__"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd547be552e8d5701357cd"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "",
-          "description": "",
-          "x": 2372,
-          "y": 0,
-          "uuid": "67cdb59c-ec74-4203-a7e8-730fd44f5085",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d5701317b0",
-          "obj_type": 0,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_sum",
-                "extra": [
-                  {
-                    "id": "1756991082448",
-                    "name": "http_retries",
-                    "value": "1"
-                  }
-                ]
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd541ee552e8d5701317c2"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Retries",
-          "description": "",
-          "x": 2324,
-          "y": 316,
-          "uuid": "1ea97a17-d266-4de6-8a4b-f5e39e01bdf3",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd541ee552e8d570131788",
-          "obj_type": 0,
-          "condition": {
-            "logics": [],
-            "semaphors": [
-              {
-                "type": "time",
-                "value": 30,
-                "dimension": "sec",
-                "to_node_id": "68cd541ee552e8d5701317dc"
-              }
-            ]
-          },
-          "title": "",
-          "description": "",
-          "x": 2372,
-          "y": -224,
-          "uuid": "0f39668a-4286-44b5-a218-c7cde5909a71",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd4707b677ac95d10d3420",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Final",
-          "description": "",
-          "x": 684,
-          "y": -196,
-          "uuid": "41359124-e303-452b-86c6-8e2dac468547",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94b677ac95d109fb48",
-          "obj_type": 3,
-          "condition": {
-            "logics": [
-              {
-                "type": "api_rpc_reply",
-                "mode": "key_value",
-                "res_data": {
-                  "error": "{{__conveyor_set_param_return_description__}}"
-                },
-                "res_data_type": {
-                  "error": "string"
-                },
-                "throw_exception": true
-              },
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94b677ac95d109fb4c"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Reply Error",
-          "description": "",
-          "x": 1660,
-          "y": -676,
-          "uuid": "e14ecc5e-1cd5-4d55-a740-490576dd9bdd",
-          "extra": "{\"modeForm\":\"expand\",\"icon\":\"\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94b677ac95d109fb4c",
-          "obj_type": 2,
-          "condition": {
-            "logics": [],
-            "semaphors": []
-          },
-          "title": "Error Set Parametrs Call",
-          "description": "",
-          "x": 2056,
-          "y": -636,
-          "uuid": "e9974bbb-ef7e-4f77-ade4-976a808d5409",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"error\"}",
-          "options": null
-        },
-        {
-          "id": "68cd3f94e552e8d57009fb0e",
-          "obj_type": 1,
-          "condition": {
-            "logics": [
-              {
-                "type": "go",
-                "to_node_id": "68cd3f94b677ac95d109fb49"
-              }
-            ],
-            "semaphors": []
-          },
-          "title": "Start",
-          "description": "",
-          "x": 1456,
-          "y": -788,
-          "uuid": "83c17f5e-031d-440d-8fe7-40e15562262b",
-          "extra": "{\"modeForm\":\"collapse\",\"icon\":\"\"}",
-          "options": null
-        }
-      ],
-      "web_settings": [
-        [],
-        []
-      ]
-    },
-    "uuid": "fbeddca6-ce5a-4ebc-b3f0-c0afe3c18fa2"
-  }
+    "web_settings": [
+      [],
+      []
+    ]
+  },
+  "uuid": "fbeddca6-ce5a-4ebc-b3f0-c0afe3c18fa2"
+}
