@@ -22,9 +22,36 @@ API_URL=<API_URL> API_TOKEN=<API_TOKEN> WORKSPACE_ID=<WORKSPACE_ID> ./convctl.sh
 ```
 where ~/repos/corezoid-ai-doc/.processes is the folder where all exported JSON processes of the project will be saved
 
+Then you need to analyze all exported processes in the ~/repos/corezoid-ai-doc/.processes folder and select those that need to be used for logic modification.
+
+If you are asked to add a call to another process in an existing process, use the Call a Process Node:
+
+### Call a Process Node
+
+- `obj_type: 0`
+- API call type: `type: "api_rpc"` (mandatory).
+- The call structure must be fully configured:
+
+```json
+{
+  "type": "api_rpc",
+  "conv_id": 9876543,
+  "err_node_id": "error_node",
+  "extra": {
+    "param1": "value1",
+    "param2": 2
+  },
+  "extra_type": {
+    "param1": "string",
+    "param2": "number"
+  },
+  "group": "all"
+}
+```
+
 ---
 
-Then you need to analyze all exported processes in the ~/repos/corezoid-ai-doc/.processes folder and select those that need to be used for logic modification.
+
 
 
 ## 3. Getting the current JSON process
@@ -95,6 +122,8 @@ All constants such as `url`, `login`, `secret`, API endpoints, database hosts, a
 ## 5. Implementing changes in the process logic.
 Implement the necessary changes according to the requirements.
 Make all changes to the JSON process in the ~/repos/corezoid-ai-doc/.processes/target_process.json file
+
+
 
 
 ## 6. 🧪 Mandatory result verification (updated JSON process)
